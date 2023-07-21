@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:vitalis_mobile/login.dart';
+import 'package:vitalis_mobile/register.dart';
 import 'package:vitalis_mobile/utils.dart';
 
 void main() {
@@ -85,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         side: BorderSide(width: 3.0, color: HexColor("246D78")),
                         elevation: 0,
                       ),
-                      onPressed: () => register(),
+                      onPressed: () => login(),
                       child: const Text("ENTRAR"),
                     ),
                     const Padding(padding: EdgeInsets.all(5)),
@@ -100,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         elevation: 0,
                       ),
-                      onPressed: () => login(),
+                      onPressed: () => register(),
                       child: const Text("REGISTRARSE"),
                     ),
                   ],
@@ -113,7 +117,23 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  login() {}
+  login() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoginInterface(),
+      ),
 
-  register() {}
+    );
+  }
+
+  register() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const RegisterInterface(),
+      ),
+
+    );
+  }
 }
