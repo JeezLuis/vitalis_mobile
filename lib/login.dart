@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vitalis_mobile/Model/LocalUser.dart';
+import 'package:vitalis_mobile/dashboard.dart';
 import 'package:vitalis_mobile/utils.dart';
 import 'package:vitalis_mobile/network.dart';
 
@@ -139,7 +140,16 @@ class _LoginInterfaceState extends State<LoginInterface> {
 
       emailController.text = '';
       passController.text = '';
-      //TODO: Enter the app
+
+      //Navigate to the main dashboard of the user
+      print("object");
+      Navigator.push(
+        context!,
+        MaterialPageRoute(
+          builder: (context) => const DashboardInterface(),
+        ),
+
+      );
     }
   }
 }

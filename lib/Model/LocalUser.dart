@@ -21,5 +21,10 @@ setLocalUser(LocalUser localUser)async{
 
 getLocalUser() async{
   final prefs = await SharedPreferences.getInstance();
-  return LocalUser(mail: prefs.getString('mail'), password: prefs.getString('password'), faceid: prefs.getBool('faceid'));
+  if(prefs.containsKey('mail')){
+    return LocalUser(mail: prefs.getString('mail'), password: prefs.getString('password'), faceid: prefs.getBool('faceid'));
+  }
+  else{
+    return const LocalUser(mail: null, password: null, faceid: null);
+  }
 }
