@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vitalis_mobile/utils.dart';
+import 'package:vitalis_mobile/network.dart';
 
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passController = TextEditingController();
@@ -16,16 +17,20 @@ class _LoginInterfaceState extends State<LoginInterface> {
 
   _LoginInterfaceState();
 
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+        backgroundColor: HexColor('246D78'),
         body:
             Stack(
               children: [
-                const Positioned.fill(  //
-                  child: Image(
-                    image: AssetImage("assets/img/background/logregbg.png"),
-                    fit : BoxFit.fitWidth,
+                Positioned(
+                  width: MediaQuery.of(context).size.width,
+                  top: MediaQuery.of(context).size.height*0.25,
+                  child: const Image(
+                    image: AssetImage("assets/img/background/logobg.png"),
                   ),
                 ),
                 SafeArea(
@@ -35,6 +40,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
                         alignment: Alignment.topCenter,
                         child: Column(
                           children: [
+                            const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
                             const Text("entrar",
                                 style: TextStyle(
                                     fontFamily: 'GLORIOUS',
@@ -49,10 +55,10 @@ class _LoginInterfaceState extends State<LoginInterface> {
                                   filled: true,
                                   fillColor: Colors.white,
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide.none,
                                   ),
-                                  hintText: 'Mail'
+                                  hintText: 'Correo'
                               ),
                             ),
                             const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
@@ -65,10 +71,10 @@ class _LoginInterfaceState extends State<LoginInterface> {
                                     filled: true,
                                     fillColor: Colors.white,
                                     border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(10),
                                       borderSide: BorderSide.none,
                                     ),
-                                    hintText: 'Password'
+                                    hintText: 'Contraseña'
                                 )
                             ),
                             const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
@@ -83,7 +89,14 @@ class _LoginInterfaceState extends State<LoginInterface> {
                                 ),
                                 elevation: 0,
                               ),
-                              onPressed: () => logUser(),
+                              onPressed: () {
+                                if(emailController.text.isEmpty || passController.text.isEmpty){
+                                  //TODO: Error
+                                }
+                                else{
+                                  logUser(emailController.text, passController.text);
+                                }
+                              },
                               child: const Text("Entrar"),
                             ),
                             //Register Button
@@ -109,7 +122,19 @@ class _LoginInterfaceState extends State<LoginInterface> {
     );
   }
 
-  logUser() {}
+  logUser(String email, String password) async {
+    var response = await logPatient(email, generateMd5(password));
+    if(response.isEmpty){
+      //TODO: Error
+      print("Error");
+    }
+    else{
+      //TODO: Guardar el usuario en la memoria local
+      emailController.text = '';
+      passController.text = '';
+      //TODO: Login
+    }
+  }
 }
 
 
