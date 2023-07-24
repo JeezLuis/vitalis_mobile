@@ -27,3 +27,16 @@ Future<List<Patient>> logPatient(String mail, String password) async {
     throw Exception('Failed to load album');
   }
 }
+
+Future<http.Response> registerPatient(String mail, String password) async{
+  return http.post(
+    Uri.parse('https://skilledmist.backendless.app/api/data/Patient'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'mail': mail,
+      'password': password,
+    }),
+  );
+}

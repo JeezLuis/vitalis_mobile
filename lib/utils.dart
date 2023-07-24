@@ -24,8 +24,8 @@ void alertError(String message, BuildContext context){
     type: QuickAlertType.error,
     title: 'Oops...',
     text: message,
-    confirmBtnColor: HexColor("868C9E"),
-    backgroundColor: HexColor("FBF1E1"),
+    confirmBtnColor: HexColor("246D78"),
+    backgroundColor: HexColor("FFFFFF"),
   );
 }
 
@@ -35,8 +35,8 @@ void alertInfo(String message, BuildContext context){
     context: context,
     type: QuickAlertType.success,
     text: message,
-    confirmBtnColor: HexColor("868C9E"),
-    backgroundColor: HexColor("FBF1E1"),
+    confirmBtnColor: HexColor("246D78"),
+    backgroundColor: HexColor("FFFFFF"),
   );
 }
 

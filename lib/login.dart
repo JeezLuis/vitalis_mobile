@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vitalis_mobile/Model/LocalUser.dart';
 import 'package:vitalis_mobile/utils.dart';
 import 'package:vitalis_mobile/network.dart';
 
@@ -91,10 +92,10 @@ class _LoginInterfaceState extends State<LoginInterface> {
                               ),
                               onPressed: () {
                                 if(emailController.text.isEmpty || passController.text.isEmpty){
-                                  //TODO: Error
+                                  alertError("Por favor, completa todos los campos.", context);
                                 }
                                 else{
-                                  logUser(emailController.text, passController.text);
+                                  logUser(emailController.text, passController.text, context);
                                 }
                               },
                               child: const Text("Entrar"),
@@ -122,17 +123,23 @@ class _LoginInterfaceState extends State<LoginInterface> {
     );
   }
 
-  logUser(String email, String password) async {
+  logUser(String email, String password, BuildContext? context) async {
     var response = await logPatient(email, generateMd5(password));
     if(response.isEmpty){
-      //TODO: Error
-      print("Error");
+      if(context != null){
+        alertError("Esta combinación de ususario y contraseña no existe.", context);
+      }
     }
     else{
-      //TODO: Guardar el usuario en la memoria local
+      //Save credentials locally
+      LocalUser localUser = await getLocalUser();
+      if(localUser.mail != email){
+        setLocalUser(LocalUser(mail: email, password: password, faceid: false));
+      }
+
       emailController.text = '';
       passController.text = '';
-      //TODO: Login
+      //TODO: Enter the app
     }
   }
 }
