@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vitalis_mobile/Model/LocalUser.dart';
+import 'package:vitalis_mobile/profile.dart';
 import 'package:vitalis_mobile/utils.dart';
 import 'package:vitalis_mobile/network.dart';
 
@@ -36,7 +37,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
             Column(
               children: [
                 Container(
-                    height: hasData == true ? AppBar().preferredSize.height + 45 + 80 : AppBar().preferredSize.height + 80,
+                    height: hasData == false ? AppBar().preferredSize.height + 45 + 80 : AppBar().preferredSize.height + 80,
                     decoration: BoxDecoration(
                       color: HexColor("246D78"),
                       boxShadow: [
@@ -54,12 +55,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: const SizedBox(width: 36,height: 36,),
-                          ),
+                          const SizedBox(width: 36,height: 36,),
                           Expanded(
                               child: Align(
                                   alignment: Alignment.bottomCenter,
@@ -128,7 +124,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                 ),
               ],
             ),
-            hasData == true ?
+            hasData == false ?
             Container(
               height: AppBar().preferredSize.height + 45,
               width: MediaQuery.of(context).size.width,
@@ -181,7 +177,12 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
   }
 
   showProfile(BuildContext context){
-
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfileInterface(patient: patient),
+      ),
+    );
   }
 }
 
