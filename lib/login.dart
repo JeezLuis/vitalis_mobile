@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vitalis_mobile/Model/LocalUser.dart';
+import 'package:vitalis_mobile/Model/local_user.dart';
 import 'package:vitalis_mobile/dashboard.dart';
 import 'package:vitalis_mobile/utils.dart';
 import 'package:vitalis_mobile/network.dart';

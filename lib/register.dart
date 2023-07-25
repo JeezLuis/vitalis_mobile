@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:vitalis_mobile/network.dart';
 import 'package:vitalis_mobile/utils.dart';

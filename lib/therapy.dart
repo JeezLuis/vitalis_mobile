@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vitalis_mobile/Model/Patient.dart';
-import 'package:vitalis_mobile/Model/TreatmentToPatient.dart';
-import 'package:vitalis_mobile/settings.dart';
+import 'package:vitalis_mobile/Model/patient.dart';
+import 'package:vitalis_mobile/Model/treatment_to_patient.dart';
 import 'package:vitalis_mobile/utils.dart';
 
 
@@ -59,7 +58,7 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
                             child: Image.asset("assets/img/props/back.png", height: 36,),
                           ),
                           const Padding(padding: EdgeInsets.only(left: 5)),
-                          Container(
+                          SizedBox(
                             height: 80,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,

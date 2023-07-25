@@ -1,7 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:vitalis_mobile/Model/Patient.dart';
+import 'package:vitalis_mobile/Model/patient.dart';
 import 'package:vitalis_mobile/settings.dart';
 import 'package:vitalis_mobile/utils.dart';
 import 'package:intl/intl.dart';
@@ -141,7 +139,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                         hintText: 'Correo'
                     )
                 ),
-                Padding(padding: EdgeInsets.only(top: 20)),
+                const Padding(padding: EdgeInsets.only(top: 20)),
                 const Align(
                   alignment: Alignment.bottomLeft,
                   child: Text("Nombre", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
@@ -162,7 +160,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                         hintText: 'Nombre'
                     )
                 ),
-                Padding(padding: EdgeInsets.only(top: 20)),
+                const Padding(padding: EdgeInsets.only(top: 20)),
                 const Align(
                   alignment: Alignment.bottomLeft,
                   child: Text("Apellidos", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
@@ -183,7 +181,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                         hintText: 'Apellidos'
                     )
                 ),
-                Padding(padding: EdgeInsets.only(top: 20)),
+                const Padding(padding: EdgeInsets.only(top: 20)),
                 const Align(
                   alignment: Alignment.bottomLeft,
                   child: Text("Genero", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
@@ -207,7 +205,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                         hintText: 'Genero'
                     )
                 ),
-                Padding(padding: EdgeInsets.only(top: 20)),
+                const Padding(padding: EdgeInsets.only(top: 20)),
                 const Align(
                   alignment: Alignment.bottomLeft,
                   child: Text("Nacimiento", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
@@ -251,7 +249,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                     ),
                     child: 
                         Padding(
-                          padding: EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(15),
                           child: viewMode == true ? Image.asset("assets/img/props/edit.png",width: 45,)
                               : Image.asset("assets/img/props/save.png", width: 45,),
                           )

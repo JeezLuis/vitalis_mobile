@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:vitalis_mobile/Model/Patient.dart';
-import 'package:vitalis_mobile/Model/TreatmentToPatient.dart';
+import 'package:vitalis_mobile/Model/patient.dart';
+import 'package:vitalis_mobile/Model/treatment_to_patient.dart';
 
 Future<List<Patient>> logPatient(String mail, String password) async {
   final response = await http.get(Uri.parse('https://skilledmist.backendless.app/api/data/Patient?where=password%20%3D%20\'$password\'%20AND%20mail%3D\'$mail\''));

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:vitalis_mobile/login.dart';
 import 'package:vitalis_mobile/register.dart';
@@ -35,13 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 120,
               color: Colors.white,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 17, 0, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
