@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vitalis_mobile/Model/LocalUser.dart';
 import 'package:vitalis_mobile/profile.dart';
+import 'package:vitalis_mobile/therapy.dart';
 import 'package:vitalis_mobile/utils.dart';
 import 'package:vitalis_mobile/network.dart';
 
@@ -173,7 +174,12 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
   }
 
   showTreatment(TreatmentToPatient treatment){
-
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TherapyInterface(patient: patient, treatment: treatment,),
+      ),
+    );
   }
 
   showProfile(BuildContext context){
