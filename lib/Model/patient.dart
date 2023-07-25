@@ -6,7 +6,7 @@ class Patient {
   final String?   objectid;
   final String?   name;
   final String?   surnames;
-  final int? birthdate;
+  final int?      birthdate;
   final String?   gender;
 
   const Patient({

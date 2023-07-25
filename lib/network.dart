@@ -85,6 +85,7 @@ Future<List<TreatmentToPatient>> getTreatments(int patientId) async {
         treatmentTypeName:  jsonDecode(response.body).elementAt(i)['treatmentTypeName'],
         doctorSurname:      jsonDecode(response.body).elementAt(i)['doctorSurname'],
         doctorName:         jsonDecode(response.body).elementAt(i)['doctorName'],
+        doctorTitle:        jsonDecode(response.body).elementAt(i)['doctorTitle'],
       )
       );
     }

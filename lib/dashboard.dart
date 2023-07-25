@@ -117,7 +117,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                                       children: [
                                         Text(item.title!, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
                                         const Padding(padding: EdgeInsets.only(top: 2)),
-                                        Text("Dr. ${item.doctorSurname!}", style: const TextStyle(fontSize: 16, color: Colors.white),)
+                                        Text(item.doctorTitle!, style: const TextStyle(fontSize: 16, color: Colors.white),)
                                       ],
                                     ),
                                     item.state == false ? Image.asset("assets/img/props/play.png", height: 30,)

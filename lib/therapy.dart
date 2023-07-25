@@ -65,7 +65,7 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(treatment.title!, style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 24, color: Colors.white),),
-                                Text("Dr. ${treatment.doctorSurname!}", style: const TextStyle(fontSize: 16, color: Colors.white))
+                                Text(treatment.doctorTitle!, style: const TextStyle(fontSize: 16, color: Colors.white))
                               ],
                             ),
                           ),

@@ -11,6 +11,7 @@ class TreatmentToPatient {
   final String?   treatmentTypeName;
   final String?   doctorSurname;
   final String?   doctorName;
+  final String?   doctorTitle;
 
   const TreatmentToPatient({
     required this.objectid,
@@ -25,6 +26,7 @@ class TreatmentToPatient {
     required this.treatmentTypeName,
     required this.doctorSurname,
     required this.doctorName,
+    required this.doctorTitle,
   });
 
   factory TreatmentToPatient.fromJson(Map<String, dynamic> json) {
@@ -41,6 +43,7 @@ class TreatmentToPatient {
       treatmentTypeName:  json['treatmentTypeName'],
       doctorSurname:      json['doctorSurname'],
       doctorName:         json['doctorName'],
+      doctorTitle:        json['doctorTitle'],
     );
   }
 }
