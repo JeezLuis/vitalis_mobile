@@ -19,8 +19,6 @@ Future<List<Patient>> logPatient(String mail, String password) async {
         surnames:   jsonDecode(response.body).elementAt(i)['surnames'],
         birthdate:  jsonDecode(response.body).elementAt(i)['birthdate'],
         gender:     jsonDecode(response.body).elementAt(i)['gender'],
-        occupation: jsonDecode(response.body).elementAt(i)['occupation'],
-        civilstate: jsonDecode(response.body).elementAt(i)['civilstate'],
       )
       );
     }
@@ -59,8 +57,6 @@ Future<List<Patient>> getPatient(String mail) async {
         surnames:   jsonDecode(response.body).elementAt(i)['surnames'],
         birthdate:  jsonDecode(response.body).elementAt(i)['birthdate'],
         gender:     jsonDecode(response.body).elementAt(i)['gender'],
-        occupation: jsonDecode(response.body).elementAt(i)['occupation'],
-        civilstate: jsonDecode(response.body).elementAt(i)['civilstate'],
       )
       );
     }

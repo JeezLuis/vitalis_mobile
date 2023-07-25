@@ -8,8 +8,6 @@ class Patient {
   final String?   surnames;
   final int? birthdate;
   final String?   gender;
-  final String?   occupation;
-  final String?   civilstate;
 
   const Patient({
     required this.userid,
@@ -21,8 +19,6 @@ class Patient {
     required this.surnames,
     required this.birthdate,
     required this.gender,
-    required this.occupation,
-    required this.civilstate,
   });
 
   factory Patient.fromJson(Map<String, dynamic> json) {
@@ -36,8 +32,6 @@ class Patient {
       surnames:   json['surnames'],
       birthdate:  json['birthdate'],
       gender:     json['gender'],
-      occupation: json['occupation'],
-      civilstate: json['civilstate'],
     );
   }
 }

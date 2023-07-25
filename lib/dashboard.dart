@@ -18,8 +18,8 @@ class DashboardInterface extends StatefulWidget {
 class _DashboardInterfaceState extends State<DashboardInterface> {
 
   LocalUser localUser = const LocalUser(mail: null, password: null, faceid: null, userkey: null);
-  bool hasData = false;
-  Patient patient = const Patient(userid: 0, userkey: '', mail: '', password: '', objectid: null, name: null, surnames: null, birthdate: null, gender: null, occupation: null, civilstate: null);
+  bool hasData = true;
+  Patient patient = const Patient(userid: 0, userkey: '', mail: '', password: '', objectid: null, name: null, surnames: null, birthdate: null, gender: null);
   List<TreatmentToPatient> treatments = <TreatmentToPatient>[];
 
   _DashboardInterfaceState();
@@ -32,7 +32,9 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
         body: Stack(
           children: [
             Column(
@@ -77,51 +79,56 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                 )
                     :
                 Expanded(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: treatments.length,
-                      itemBuilder: (BuildContext context, int index){
-                        TreatmentToPatient item = treatments[index];
+                    child: RefreshIndicator(
+                      onRefresh: () => getSortTreatments(),
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: treatments.length,
+                          itemBuilder: (BuildContext context, int index){
+                            TreatmentToPatient item = treatments[index];
 
-                        return GestureDetector(
-                          onTap: () {
-                            showTreatment(item);
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.fromLTRB(10, 25, 20, 25),
-                            margin: const EdgeInsets.fromLTRB(15,0,15,20),
-                            decoration: BoxDecoration(
-                              color: item.state == false ? HexColor("4ADFF7") : HexColor("8E8E8E"),
-                              borderRadius: const BorderRadius.all(Radius.circular(10)),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black38,
-                                  blurRadius: 7,
-                                  offset: Offset(2, 3),
-                                  spreadRadius: 0.5,
-                                ),
-                              ],
-                            ),
-                            child:
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(item.title!, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
-                                    const Padding(padding: EdgeInsets.only(top: 2)),
-                                    Text("Dr. ${item.doctorSurname!}", style: const TextStyle(fontSize: 16, color: Colors.white),)
+                            return GestureDetector(
+                              onTap: () {
+                                if(item.state == false){
+                                  showTreatment(item);
+                                }
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.fromLTRB(10, 25, 20, 25),
+                                margin: const EdgeInsets.fromLTRB(15,0,15,20),
+                                decoration: BoxDecoration(
+                                  color: item.state == false ? HexColor("4ADFF7") : HexColor("8E8E8E"),
+                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black38,
+                                      blurRadius: 7,
+                                      offset: Offset(2, 3),
+                                      spreadRadius: 0.5,
+                                    ),
                                   ],
                                 ),
-                                item.state == false ? Image.asset("assets/img/props/play.png", height: 30,)
-                                    : Image.asset("assets/img/props/pause.png", height: 30,),
-                              ],
-                            ),
-                          ),
-                        );
-                      }
-                  ),
+                                child:
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(item.title!, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
+                                        const Padding(padding: EdgeInsets.only(top: 2)),
+                                        Text("Dr. ${item.doctorSurname!}", style: const TextStyle(fontSize: 16, color: Colors.white),)
+                                      ],
+                                    ),
+                                    item.state == false ? Image.asset("assets/img/props/play.png", height: 30,)
+                                        : Image.asset("assets/img/props/pause.png", height: 30,),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                      ),
+                    )
                 ),
               ],
             ),
@@ -154,7 +161,12 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                 : const SizedBox.shrink(),
           ],
         )
+      )
     );
+  }
+
+  Future<bool> _onWillPop() async {
+    return false; //<-- SEE HERE
   }
 
   initUserData() async{
@@ -169,9 +181,22 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
       hasData = true;
     }
     //Get Treatment Data
-    treatments = await getTreatments(patient.userid);
-    setState(() {});
+    await getSortTreatments();
+
   }
+
+getSortTreatments() async{
+    treatments = await getTreatments(patient.userid);
+    int compareNames(TreatmentToPatient treatment1 , TreatmentToPatient treatment2) {
+      if(treatment1.state == true   && treatment1.state == false) return 1;
+      if(treatment1.state == false  && treatment1.state == true)  return 0;
+      if(treatment1.state == true   && treatment1.state == true)  return 1;
+      if(treatment1.state == false  && treatment1.state == false) return 0;
+      return 0;
+    }
+    treatments.sort(compareNames);
+    setState(() {});
+}
 
   showTreatment(TreatmentToPatient treatment){
     Navigator.push(
