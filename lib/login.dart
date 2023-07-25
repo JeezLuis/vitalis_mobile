@@ -135,14 +135,13 @@ class _LoginInterfaceState extends State<LoginInterface> {
       //Save credentials locally
       LocalUser localUser = await getLocalUser();
       if(localUser.mail != email){
-        setLocalUser(LocalUser(mail: email, password: password, faceid: false));
+        setLocalUser(LocalUser(mail: email, password: password, faceid: false, userkey: response.elementAt(0).userkey));
       }
 
       emailController.text = '';
       passController.text = '';
 
       //Navigate to the main dashboard of the user
-      print("object");
       Navigator.push(
         context!,
         MaterialPageRoute(
