@@ -29,15 +29,16 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
 
   @override
   void initState() {
-    var dt = DateTime.fromMillisecondsSinceEpoch(patient.birthdate!);
-    var date = DateFormat('MM/dd/yyyy').format(dt);
-
+    //Initialize data
     emailController.text = patient.mail;
-    nameController.text = patient.name!;
-    surnameController.text = patient.surnames!;
-    genderController.text = patient.gender!;
-    birthdayController.text = date;
-
+    if(patient.name != null) nameController.text = patient.name!;
+    if(patient.surnames != null) surnameController.text = patient.surnames!;
+    if(patient.gender != null) genderController.text = patient.gender!;
+    if(patient.birthdate != null){
+      var dt = DateTime.fromMillisecondsSinceEpoch(patient.birthdate!);
+      var date = DateFormat('MM/dd/yyyy').format(dt);
+      birthdayController.text = date;
+    }
     super.initState();
   }
 
@@ -47,6 +48,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
     return Scaffold(
       body: Column(
         children: [
+          //App NavBar
           Container(
               height: AppBar().preferredSize.height + 80,
               decoration: BoxDecoration(
@@ -93,6 +95,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                 ),
               )
           ),
+          //Patient unique KEY
           Container(
             padding: const EdgeInsets.fromLTRB(25,10,25,10),
             margin: const EdgeInsets.fromLTRB(0,20,0,0),
@@ -119,11 +122,13 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
             padding: const EdgeInsets.fromLTRB(25, 20, 25, 0),
             child: Column(
               children: [
+                //Mail
                 const Align(
                   alignment: Alignment.bottomLeft,
                   child: Text("Correo", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 7)),
+                //Mail Text Field
                 TextField(
                     controller: emailController,
                     enableSuggestions: false,
@@ -140,11 +145,13 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                     )
                 ),
                 const Padding(padding: EdgeInsets.only(top: 20)),
+                //Name
                 const Align(
                   alignment: Alignment.bottomLeft,
                   child: Text("Nombre", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 7)),
+                //Name Text Field
                 TextField(
                     controller: nameController,
                     enableSuggestions: false,
@@ -161,11 +168,13 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                     )
                 ),
                 const Padding(padding: EdgeInsets.only(top: 20)),
+                //Surnames
                 const Align(
                   alignment: Alignment.bottomLeft,
                   child: Text("Apellidos", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 7)),
+                //Surnames Text Field
                 TextField(
                     controller: surnameController,
                     enableSuggestions: false,
@@ -182,11 +191,13 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                     )
                 ),
                 const Padding(padding: EdgeInsets.only(top: 20)),
+                //Gender
                 const Align(
                   alignment: Alignment.bottomLeft,
                   child: Text("Genero", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 7)),
+                //Gender Text Field
                 TextField(
                     onTap: () {
                       setGender();
@@ -206,11 +217,13 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                     )
                 ),
                 const Padding(padding: EdgeInsets.only(top: 20)),
+                //Birthdate
                 const Align(
                   alignment: Alignment.bottomLeft,
                   child: Text("Nacimiento", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 7)),
+                //Birthdate Text Field
                 TextField(
                     onTap: () {
                       setBirthday();
@@ -230,6 +243,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                     )
                 ),
                 const Padding(padding: EdgeInsets.only(top: 25)),
+                //Edit/Save Button
                 GestureDetector(
                   onTap: () {
                     saveData(context);
@@ -268,7 +282,6 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
   }
 
   setGender(){
-
     //TODO: Llamar a la pregunta que pregunta el genero
   }
 

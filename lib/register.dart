@@ -44,6 +44,7 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
                     child: Column(
                       children: [
                         const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
+                        //Register title
                         const Text("registro",
                             style: TextStyle(
                                 fontFamily: 'GLORIOUS',
@@ -52,6 +53,7 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
                                 shadows: <Shadow>[Shadow(color: Colors.black38, offset: Offset(3.0, 3.0), blurRadius: 4.0)]
                             )
                         ),
+                        //Mail field
                         TextField(
                           controller: emailController,
                           decoration: InputDecoration(
@@ -65,6 +67,7 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
                           ),
                         ),
                         const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
+                        //Password field
                         TextField(
                             controller: passController,
                             obscureText: true,
@@ -81,6 +84,7 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
                             )
                         ),
                         const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
+                        //Repeat password field
                         TextField(
                             controller: reppassController,
                             obscureText: true,
@@ -97,6 +101,7 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
                             )
                         ),
                         const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
+                        //Register Button
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: HexColor("4ADFF7"),
@@ -111,7 +116,8 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
                           onPressed: () => registerUser(context),
                           child: const Text("Registrar"),
                         ),
-                        //Register Button
+                        const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
+                        //Back Button
                         TextButton(
                           style: TextButton.styleFrom(
                             textStyle: const TextStyle(fontSize: 18),
@@ -158,9 +164,11 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
     //Send POST method
     var response = await registerPatient(emailController.text, generateMd5(passController.text));
     if (response.statusCode == 200) {
+      //Clear all input fields
       emailController.text = '';
       passController.text = '';
       reppassController.text = '';
+
       alertInfo("¡Se ha registrado correctamente!", context);
     } else {
       switch(jsonDecode(response.body)['code']){

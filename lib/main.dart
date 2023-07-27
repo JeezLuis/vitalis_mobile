@@ -69,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    //Login Button
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
                         foregroundColor: HexColor("246D78"),
@@ -84,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: const Text("ENTRAR"),
                     ),
                     const Padding(padding: EdgeInsets.all(5)),
+                    //Register Button
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: HexColor("246D78"),

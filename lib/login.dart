@@ -10,7 +10,6 @@ final TextEditingController passController = TextEditingController();
 class LoginInterface extends StatefulWidget {
   const LoginInterface({super.key});
 
-
   @override
   State<StatefulWidget> createState() => _LoginInterfaceState();
 }
@@ -43,6 +42,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
                         child: Column(
                           children: [
                             const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
+                            //Title
                             const Text("entrar",
                                 style: TextStyle(
                                     fontFamily: 'GLORIOUS',
@@ -51,6 +51,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
                                     shadows: <Shadow>[Shadow(color: Colors.black38, offset: Offset(3.0, 3.0), blurRadius: 4.0)]
                                 )
                             ),
+                            //Mail field
                             TextField(
                               controller: emailController,
                               decoration: InputDecoration(
@@ -64,6 +65,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
                               ),
                             ),
                             const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
+                            //Password Field
                             TextField(
                                 controller: passController,
                                 obscureText: true,
@@ -80,6 +82,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
                                 )
                             ),
                             const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
+                            //Login Button
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: HexColor("4ADFF7"),
@@ -101,7 +104,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
                               },
                               child: const Text("Entrar"),
                             ),
-                            //Register Button
+                            //Back Button
                             TextButton(
                               style: TextButton.styleFrom(
                                 textStyle: const TextStyle(fontSize: 18),
@@ -125,6 +128,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
   }
 
   logUser(String email, String password, BuildContext? context) async {
+    //Check if mail and password combinatgion exists
     var response = await logPatient(email, generateMd5(password));
     if(response.isEmpty){
       if(context != null){
@@ -138,6 +142,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
         setLocalUser(LocalUser(mail: email, password: password, faceid: false, userkey: response.elementAt(0).userkey));
       }
 
+      //Empty input texts
       emailController.text = '';
       passController.text = '';
 

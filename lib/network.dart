@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:vitalis_mobile/Model/patient.dart';
 import 'package:vitalis_mobile/Model/treatment_to_patient.dart';
 
-Future<List<Patient>> logPatient(String mail, String password) async {
-  final response = await http.get(Uri.parse('https://skilledmist.backendless.app/api/data/Patient?where=password%20%3D%20\'$password\'%20AND%20mail%3D\'$mail\''));
+const String url = 'https://skilledmist.backendless.app/api/data/';
 
+Future<List<Patient>> logPatient(String mail, String password) async {
+  final response = await http.get(Uri.parse('${url}Patient?where=password%20%3D%20\'$password\'%20AND%20mail%3D\'$mail\''));
   if (response.statusCode == 200) {
     List<Patient> patients = <Patient>[];
     for(var i = 0; i < jsonDecode(response.body).length; i++){
@@ -19,8 +20,7 @@ Future<List<Patient>> logPatient(String mail, String password) async {
         surnames:   jsonDecode(response.body).elementAt(i)['surnames'],
         birthdate:  jsonDecode(response.body).elementAt(i)['birthdate'],
         gender:     jsonDecode(response.body).elementAt(i)['gender'],
-      )
-      );
+      ));
     }
     return patients;
   } else {
@@ -30,7 +30,7 @@ Future<List<Patient>> logPatient(String mail, String password) async {
 
 Future<http.Response> registerPatient(String mail, String password) async{
   return http.post(
-    Uri.parse('https://skilledmist.backendless.app/api/data/Patient'),
+    Uri.parse('${url}Patient'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -41,8 +41,9 @@ Future<http.Response> registerPatient(String mail, String password) async{
   );
 }
 
+///Get patient info from an email
 Future<List<Patient>> getPatient(String mail) async {
-  final response = await http.get(Uri.parse('https://skilledmist.backendless.app/api/data/Patient?where=mail%3D\'$mail\''));
+  final response = await http.get(Uri.parse('${url}Patient?where=mail%3D\'$mail\''));
 
   if (response.statusCode == 200) {
     List<Patient> patients = <Patient>[];
@@ -57,8 +58,7 @@ Future<List<Patient>> getPatient(String mail) async {
         surnames:   jsonDecode(response.body).elementAt(i)['surnames'],
         birthdate:  jsonDecode(response.body).elementAt(i)['birthdate'],
         gender:     jsonDecode(response.body).elementAt(i)['gender'],
-      )
-      );
+      ));
     }
     return patients;
   } else {
@@ -66,9 +66,9 @@ Future<List<Patient>> getPatient(String mail) async {
   }
 }
 
+///Get treatments assigned to specific patient
 Future<List<TreatmentToPatient>> getTreatments(int patientId) async {
-  final response = await http.get(Uri.parse('https://skilledmist.backendless.app/api/data/TreatmentToPatient?where=patientid%3D$patientId'));
-
+  final response = await http.get(Uri.parse('${url}TreatmentToPatient?where=patientid%3D$patientId'));
   if (response.statusCode == 200) {
     List<TreatmentToPatient> patients = <TreatmentToPatient>[];
     for(var i = 0; i < jsonDecode(response.body).length; i++){
@@ -86,8 +86,7 @@ Future<List<TreatmentToPatient>> getTreatments(int patientId) async {
         doctorSurname:      jsonDecode(response.body).elementAt(i)['doctorSurname'],
         doctorName:         jsonDecode(response.body).elementAt(i)['doctorName'],
         doctorTitle:        jsonDecode(response.body).elementAt(i)['doctorTitle'],
-      )
-      );
+      ));
     }
     return patients;
   } else {
