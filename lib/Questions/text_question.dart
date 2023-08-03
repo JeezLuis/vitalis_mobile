@@ -52,7 +52,7 @@ class _TextQuestionDialogState extends State<TextQuestionDialog> {
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide.none,
                             ),
-                            hintText: "Respuesta"
+                            hintText: AppLocalizations.of(context)!.answer_hint_text
                         ),
                       ),
                       const Padding(padding: EdgeInsets.only(top: 20)),
@@ -70,7 +70,7 @@ class _TextQuestionDialogState extends State<TextQuestionDialog> {
                         onPressed: () {
                           sendResponse();
                         },
-                        child: Text("Responder"),
+                        child: Text(AppLocalizations.of(context)!.answer),
                       ),
                       const Padding(padding: EdgeInsets.only(top: 20)),
                       TextButton(
@@ -82,7 +82,7 @@ class _TextQuestionDialogState extends State<TextQuestionDialog> {
                           answerController.text = '';
                           Navigator.pop(context);
                         },
-                        child: Text("Contestar después"),
+                        child: Text(AppLocalizations.of(context)!.answer_later),
                       ),
                     ],
                   )
@@ -95,6 +95,17 @@ class _TextQuestionDialogState extends State<TextQuestionDialog> {
   }
 
   sendResponse() async {
-    var result = await respondQuestion(question, answerController.text);
+    if(answerController.text.isNotEmpty) {
+      var result = await respondQuestion(question, answerController.text);
+      if (result == 0) {
+        Navigator.pop(context);
+      }
+      else {
+        alertError(AppLocalizations.of(context)!.err_system_failure(result.toString()), context);
+      }
+    }
+    else{
+      alertInfo(AppLocalizations.of(context)!.err_missing_fields, context);
+    }
   }
 }

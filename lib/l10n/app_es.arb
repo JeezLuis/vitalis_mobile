@@ -9,7 +9,16 @@
     "surname" : "Apellidos",
     "rpassword" : "Repetir contraseña",
 
-    "err_missing_fields" : "Faltan campos por completar",
+    "answer_later" : "Contestar después",
+    "answer" : "Responder",
+    "answer_hint_text" : "Respuesta",
+    "answer_hint_day" : "Dia",
+    "answer_hint_month" : "Mes",
+    "answer_hint_year" : "Año",
+    "answer_hint_number" : "00",
+
+    "err_missing_fields" : "Porfavor, completa todos los campos",
+    "err_wrong_date_format" : "Formato de la fecha incorrecto",
     "err_system_failure" : "Error {errorCode}, por favor contacta con tu administrador",
     "@err_system_failure": {
       "description": "Something went wrong with the server",

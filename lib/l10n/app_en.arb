@@ -9,7 +9,16 @@
     "surname" : "Surnames",
     "rpassword" : "Repeat password",
 
-    "err_missing_fields" : "Fill missing fields",
+    "answer_later" : "Answer later",
+    "answer" : "Respond",
+    "answer_hint_text" : "Response",
+    "answer_hint_day" : "Day",
+    "answer_hint_month" : "Mon",
+    "answer_hint_year" : "Year",
+    "answer_hint_number" : "00",
+
+    "err_missing_fields" : "Please, fill missing fields",
+    "err_wrong_date_format" : "Wrong date format",
     "err_system_failure" : "Error {errorCode}, please contact your administrator",
     "@err_system_failure": {
       "description": "Something went wrong with the server",

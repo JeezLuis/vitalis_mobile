@@ -7,7 +7,9 @@ import 'package:vitalis_mobile/utils.dart';
 
 import 'Model/question.dart';
 import 'Model/response.dart';
+import 'Questions/date_question.dart';
 import 'Questions/text_question.dart';
+import 'Questions/text_xl_question.dart';
 
 
 
@@ -195,8 +197,24 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
         );
         break;
       case 2: //Text XL
+        await showDialog(context: context,
+            useSafeArea: false,
+            builder: (BuildContext context){
+              return TextXLQuestionDialog(
+                question: question,
+              );
+            }
+        );
         break;
       case 3: //Date
+        await showDialog(context: context,
+            useSafeArea: false,
+            builder: (BuildContext context){
+              return DateQuestionDialog(
+                question: question,
+              );
+            }
+        );
         break;
       case 4: //Number
         break;
