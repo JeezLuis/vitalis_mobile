@@ -108,7 +108,7 @@ class _TextXLQuestionDialogState extends State<TextXLQuestionDialog> {
       }
     }
     else{
-      alertInfo(AppLocalizations.of(context)!.err_missing_fields, context);
+      alertError(AppLocalizations.of(context)!.err_missing_fields, context);
     }
   }
 }

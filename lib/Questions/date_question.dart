@@ -156,7 +156,7 @@ class _DateQuestionDialogState extends State<DateQuestionDialog> {
       }
     }
     else{
-      alertInfo(AppLocalizations.of(context)!.err_wrong_date_format, context);
+      alertError(AppLocalizations.of(context)!.err_wrong_date_format, context);
     }
 
 

@@ -8,6 +8,7 @@ import 'package:vitalis_mobile/utils.dart';
 import 'Model/question.dart';
 import 'Model/response.dart';
 import 'Questions/date_question.dart';
+import 'Questions/star_question.dart';
 import 'Questions/text_question.dart';
 import 'Questions/text_xl_question.dart';
 
@@ -221,6 +222,14 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
       case 5: //Bool
         break;
       case 6: //Star
+        await showDialog(context: context,
+            useSafeArea: false,
+            builder: (BuildContext context){
+              return StarQuestionDialog(
+                question: question,
+              );
+            }
+        );
         break;
       case 7: //Rating
         break;

@@ -105,7 +105,7 @@ class _TextQuestionDialogState extends State<TextQuestionDialog> {
       }
     }
     else{
-      alertInfo(AppLocalizations.of(context)!.err_missing_fields, context);
+      alertError(AppLocalizations.of(context)!.err_missing_fields, context);
     }
   }
 }
