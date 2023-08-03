@@ -9,21 +9,22 @@ Future<List<Patient>> logPatient(String mail, String password) async {
   final response = await http.get(Uri.parse('${url}Patient?where=password%20%3D%20\'$password\'%20AND%20mail%3D\'$mail\''));
   if (response.statusCode == 200) {
     List<Patient> patients = <Patient>[];
-    for(var i = 0; i < jsonDecode(response.body).length; i++){
+    for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
       patients.add(Patient(
-        userid:     jsonDecode(response.body).elementAt(i)['patientid'],
-        userkey:    jsonDecode(response.body).elementAt(i)['userkey'],
-        mail:       jsonDecode(response.body).elementAt(i)['mail'],
-        password:   jsonDecode(response.body).elementAt(i)['password'],
-        objectid:   jsonDecode(response.body).elementAt(i)['objectId'],
-        name:       jsonDecode(response.body).elementAt(i)['name'],
-        surnames:   jsonDecode(response.body).elementAt(i)['surnames'],
-        birthdate:  jsonDecode(response.body).elementAt(i)['birthdate'],
-        gender:     jsonDecode(response.body).elementAt(i)['gender'],
+        userid:     jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['patientid'],
+        userkey:    jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['userkey'],
+        mail:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['mail'],
+        password:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['password'],
+        objectid:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectId'],
+        name:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['name'],
+        surnames:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['surnames'],
+        birthdate:  jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['birthdate'],
+        gender:     jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['gender'],
       ));
     }
     return patients;
   } else {
+    print(response.body);
     throw Exception('Failed to load Patient');
   }
 }
@@ -47,17 +48,17 @@ Future<List<Patient>> getPatient(String mail) async {
 
   if (response.statusCode == 200) {
     List<Patient> patients = <Patient>[];
-    for(var i = 0; i < jsonDecode(response.body).length; i++){
+    for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
       patients.add(Patient(
-        userid:     jsonDecode(response.body).elementAt(i)['patientid'],
-        userkey:    jsonDecode(response.body).elementAt(i)['userkey'],
-        mail:       jsonDecode(response.body).elementAt(i)['mail'],
-        password:   jsonDecode(response.body).elementAt(i)['password'],
-        objectid:   jsonDecode(response.body).elementAt(i)['objectId'],
-        name:       jsonDecode(response.body).elementAt(i)['name'],
-        surnames:   jsonDecode(response.body).elementAt(i)['surnames'],
-        birthdate:  jsonDecode(response.body).elementAt(i)['birthdate'],
-        gender:     jsonDecode(response.body).elementAt(i)['gender'],
+        userid:     jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['patientid'],
+        userkey:    jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['userkey'],
+        mail:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['mail'],
+        password:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['password'],
+        objectid:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectId'],
+        name:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['name'],
+        surnames:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['surnames'],
+        birthdate:  jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['birthdate'],
+        gender:     jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['gender'],
       ));
     }
     return patients;
@@ -71,21 +72,21 @@ Future<List<TreatmentToPatient>> getTreatments(int patientId) async {
   final response = await http.get(Uri.parse('${url}TreatmentToPatient?where=patientid%3D$patientId'));
   if (response.statusCode == 200) {
     List<TreatmentToPatient> patients = <TreatmentToPatient>[];
-    for(var i = 0; i < jsonDecode(response.body).length; i++){
+    for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
       patients.add(TreatmentToPatient(
-        objectid:           jsonDecode(response.body).elementAt(i)['objectid'],
-        treatmentid:        jsonDecode(response.body).elementAt(i)['treatmentid'],
-        title:              jsonDecode(response.body).elementAt(i)['title'],
-        observations:       jsonDecode(response.body).elementAt(i)['observations'],
-        startdate:          jsonDecode(response.body).elementAt(i)['startdate'],
-        state:              jsonDecode(response.body).elementAt(i)['state'],
-        patientMail:        jsonDecode(response.body).elementAt(i)['patientMail'],
-        patientid:          jsonDecode(response.body).elementAt(i)['patientid'],
-        patientObjectId:    jsonDecode(response.body).elementAt(i)['patientObjectId'],
-        treatmentTypeName:  jsonDecode(response.body).elementAt(i)['treatmentTypeName'],
-        doctorSurname:      jsonDecode(response.body).elementAt(i)['doctorSurname'],
-        doctorName:         jsonDecode(response.body).elementAt(i)['doctorName'],
-        doctorTitle:        jsonDecode(response.body).elementAt(i)['doctorTitle'],
+        objectid:           jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectid'],
+        treatmentid:        jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['treatmentid'],
+        title:              jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['title'],
+        observations:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['observations'],
+        startdate:          jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['startdate'],
+        state:              jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['state'],
+        patientMail:        jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['patientMail'],
+        patientid:          jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['patientid'],
+        patientObjectId:    jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['patientObjectId'],
+        treatmentTypeName:  jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['treatmentTypeName'],
+        doctorSurname:      jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['doctorSurname'],
+        doctorName:         jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['doctorName'],
+        doctorTitle:        jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['doctorTitle'],
       ));
     }
     return patients;
