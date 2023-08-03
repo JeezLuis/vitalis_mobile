@@ -1,0 +1,23 @@
+{
+    "login" : "Entrar",
+    "register" : "Reistrar",
+    "registert" : "Registro",
+    "mail" : "Correo",
+    "password" : "Contraseña",
+    "back" : "Atrás",
+    "name" : "Nombre",
+    "surname" : "Apellidos",
+    "rpassword" : "Repetir contraseña",
+
+    "err_missing_fields" : "Faltan campos por completar",
+    "err_system_failure" : "Error {errorCode}, por favor contacta con tu administrador",
+    "@err_system_failure": {
+      "description": "Something went wrong with the server",
+      "placeholders": {
+        "errorCode": {
+          "type": "String",
+          "example": "400"
+        }
+      }
+  }
+}

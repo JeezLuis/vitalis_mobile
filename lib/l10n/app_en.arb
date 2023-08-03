@@ -1,0 +1,23 @@
+{
+    "login" : "Login",
+    "register" : "Register",
+    "registert" : "Register",
+    "mail" : "Mail",
+    "password" : "Password",
+    "back" : "Back",
+    "name" : "Name",
+    "surname" : "Surnames",
+    "rpassword" : "Repeat password",
+
+    "err_missing_fields" : "Fill missing fields",
+    "err_system_failure" : "Error {errorCode}, please contact your administrator",
+    "@err_system_failure": {
+      "description": "Something went wrong with the server",
+      "placeholders": {
+        "errorCode": {
+          "type": "String",
+          "example": "400"
+        }
+      }
+  }
+}

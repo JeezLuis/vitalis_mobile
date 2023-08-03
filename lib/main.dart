@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vitalis_mobile/login.dart';
 import 'package:vitalis_mobile/register.dart';
 import 'package:vitalis_mobile/utils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +21,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.cyan,
         fontFamily: 'Inter'
       ),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: const Locale('es'),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -82,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         elevation: 0,
                       ),
                       onPressed: () => login(),
-                      child: const Text("ENTRAR"),
+                      child: Text(AppLocalizations.of(context)!.login.toUpperCase()),
                     ),
                     const Padding(padding: EdgeInsets.all(5)),
                     //Register Button
@@ -98,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         elevation: 0,
                       ),
                       onPressed: () => register(),
-                      child: const Text("REGISTRARSE"),
+                      child: Text(AppLocalizations.of(context)!.register.toUpperCase()),
                     ),
                   ],
                 ),
