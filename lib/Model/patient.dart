@@ -1,15 +1,15 @@
 class Patient {
-  final int       userid;
-  final String    userkey;
-  final String    mail;
-  final String    password;
-  final String?   objectid;
-  final String?   name;
-  final String?   surnames;
-  final int?      birthdate;
-  final String?   gender;
+  int       userid;
+  String    userkey;
+  String    mail;
+  String    password;
+  String?   objectid;
+  String?   name;
+  String?   surnames;
+  int?      birthdate;
+  String?   gender;
 
-  const Patient({
+  Patient({
     required this.userid,
     required this.userkey,
     required this.mail,

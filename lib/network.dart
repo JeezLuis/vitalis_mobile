@@ -24,7 +24,6 @@ Future<List<Patient>> logPatient(String mail, String password) async {
     }
     return patients;
   } else {
-    print(response.body);
     throw Exception('Failed to load Patient');
   }
 }
@@ -74,7 +73,7 @@ Future<List<TreatmentToPatient>> getTreatments(int patientId) async {
     List<TreatmentToPatient> patients = <TreatmentToPatient>[];
     for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
       patients.add(TreatmentToPatient(
-        objectid:           jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectid'],
+        objectid:           jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectId'],
         treatmentid:        jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['treatmentid'],
         title:              jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['title'],
         observations:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['observations'],
@@ -93,4 +92,18 @@ Future<List<TreatmentToPatient>> getTreatments(int patientId) async {
   } else {
     throw Exception('Failed to load TreatmentToPatient');
   }
+}
+
+Future<http.Response> updatePatient(Patient patient) {
+  return http.put(Uri.parse('${url}Patient/${patient.objectid}'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode({
+      'name': patient.name,
+      'surnames' : patient.surnames,
+      'gender' : patient.gender,
+      'birthdate' : patient.birthdate
+    }),
+  );
 }

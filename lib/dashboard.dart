@@ -19,7 +19,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
 
   LocalUser localUser = const LocalUser(mail: null, password: null, faceid: null, userkey: null);
   bool hasData = true;
-  Patient patient = const Patient(userid: 0, userkey: '', mail: '', password: '', objectid: null, name: null, surnames: null, birthdate: null, gender: null);
+  Patient patient = Patient(userid: 0, userkey: '', mail: '', password: '', objectid: null, name: null, surnames: null, birthdate: null, gender: null);
   List<TreatmentToPatient> treatments = <TreatmentToPatient>[];
 
   _DashboardInterfaceState();
@@ -65,7 +65,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                                   child: Image.asset("assets/img/props/logobanner.png", height: 30,))),
                           GestureDetector(
                             onTap: () {
-                              showProfile(context);
+                              showProfile(context, true);
                             },
                             child: Image.asset("assets/img/props/profile.png", height: 36,),
                           )
@@ -152,7 +152,9 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        showProfile(context, false);
+                      },
                       child: const Text("¡Termina de completar tu perfil!", style: TextStyle(color: Colors.white, fontSize: 20,),),
                     ),
                   )
@@ -207,11 +209,11 @@ getSortTreatments() async{
     );
   }
 
-  showProfile(BuildContext context){
+  showProfile(BuildContext context, bool viewMode){
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ProfileInterface(patient: patient),
+        builder: (context) => ProfileInterface(patient: patient, viewMode: viewMode),
       ),
     );
   }

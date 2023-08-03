@@ -3,40 +3,48 @@ import 'package:vitalis_mobile/Model/patient.dart';
 import 'package:vitalis_mobile/settings.dart';
 import 'package:vitalis_mobile/utils.dart';
 import 'package:intl/intl.dart';
-
+import 'constants.dart' as Constants;
+import 'network.dart';
 
 final TextEditingController emailController = TextEditingController();
 final TextEditingController nameController = TextEditingController();
 final TextEditingController surnameController = TextEditingController();
-final TextEditingController genderController = TextEditingController();
 final TextEditingController birthdayController = TextEditingController();
 
 class ProfileInterface extends StatefulWidget {
   final Patient patient;
+  final bool viewMode;
 
-  const ProfileInterface({super.key, required this.patient});
+  const ProfileInterface({super.key, required this.patient, required this.viewMode});
 
   @override
-  State<StatefulWidget> createState() => _ProfileInterfaceState(patient);
+  State<StatefulWidget> createState() => _ProfileInterfaceState(patient, viewMode);
 }
 
 class _ProfileInterfaceState extends State<ProfileInterface> {
   final Patient patient;
-  bool viewMode = true;
+  bool viewMode;
+  String dropdownValueGender = '';
 
-  _ProfileInterfaceState(this.patient);
+
+  _ProfileInterfaceState(this.patient, this.viewMode);
 
 
   @override
   void initState() {
     //Initialize data
+    nameController.text = '';
+    surnameController.text = '';
+    birthdayController.text = '';
+    dropdownValueGender = '';
+
     emailController.text = patient.mail;
     if(patient.name != null) nameController.text = patient.name!;
     if(patient.surnames != null) surnameController.text = patient.surnames!;
-    if(patient.gender != null) genderController.text = patient.gender!;
+    if(patient.gender != null) dropdownValueGender = patient.gender!;
     if(patient.birthdate != null){
       var dt = DateTime.fromMillisecondsSinceEpoch(patient.birthdate!);
-      var date = DateFormat('MM/dd/yyyy').format(dt);
+      var date = DateFormat('dd/MM/yyyy').format(dt);
       birthdayController.text = date;
     }
     super.initState();
@@ -198,23 +206,30 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                 ),
                 const Padding(padding: EdgeInsets.only(top: 7)),
                 //Gender Text Field
-                TextField(
-                    onTap: () {
-                      setGender();
-                    },
-                    controller: genderController,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: viewMode == true ? HexColor("D9D9D9") : HexColor("95EBF9"),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
-                        ),
-                        hintText: 'Genero'
-                    )
+                DropdownButtonFormField(
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: viewMode == true ? HexColor("D9D9D9") : HexColor("95EBF9"),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                    hintText: dropdownValueGender.isEmpty ? "Gender" : dropdownValueGender,
+                    hintStyle: dropdownValueGender.isEmpty ? const TextStyle() : const TextStyle(color: Colors.black),
+                  ),
+                  items: Constants.genders.map<DropdownMenuItem<String>>((String gender) {
+                    return DropdownMenuItem<String>(
+                      value: gender,
+                      child: Text(gender),
+                    );
+                  }).toList(),
+                  onChanged: viewMode == true ? null : (String? gender) {
+                    patient.gender = gender;
+                    setState(() {
+                      dropdownValueGender = gender!;
+                    });
+                  },
+
                 ),
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 //Birthdate
@@ -226,7 +241,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                 //Birthdate Text Field
                 TextField(
                     onTap: () {
-                      setBirthday();
+                      if(!viewMode) setBirthday();
                     },
                     controller: birthdayController,
                     enableSuggestions: false,
@@ -277,20 +292,33 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
     );
   }
 
-  setBirthday(){
-    //TODO: Llamar a la pregunta que pide fecha
-  }
-
-  setGender(){
-    //TODO: Llamar a la pregunta que pregunta el genero
+  setBirthday() async {
+    DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: patient.birthdate != null ?
+          DateTime.fromMillisecondsSinceEpoch(patient.birthdate!) :
+          DateTime.now(),
+        lastDate: DateTime(3000),
+        firstDate: DateTime(1900),
+    );
+    if(pickedDate != null) {
+      patient.birthdate = pickedDate.millisecondsSinceEpoch;
+      var dt = DateTime.fromMillisecondsSinceEpoch(patient.birthdate!);
+      var date = DateFormat('dd/MM/yyyy').format(dt);
+      birthdayController.text = date;
+    }
   }
 
   saveData(BuildContext context) async {
     if(viewMode == false){
-      //TODO: Actualitzar les dades
+      patient.name = nameController.text;
+      patient.surnames = surnameController.text;
+      await updatePatient(patient);
+      viewMode = !viewMode;
     }
-
-    viewMode = !viewMode;
+    else{
+      viewMode = !viewMode;
+    }
     setState(() {});
   }
 }
