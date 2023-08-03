@@ -3,7 +3,7 @@ class TreatmentToPatient {
   final int?      treatmentid;
   final String?   title;
   final String?   observations;
-  final int? startdate;
+  final int?      startdate;
   final bool?     state;
   final String?   patientMail;
   final int?      patientid;
@@ -31,7 +31,7 @@ class TreatmentToPatient {
 
   factory TreatmentToPatient.fromJson(Map<String, dynamic> json) {
     return TreatmentToPatient(
-      objectid:           json['objectid'],
+      objectid:           json['objectId'],
       treatmentid:        json['treatmentid'],
       title:              json['title'],
       observations:       json['observations'],

@@ -1,6 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:vitalis_mobile/Model/patient.dart';
+import 'package:vitalis_mobile/Model/question.dart';
+import 'package:vitalis_mobile/Model/response.dart';
 import 'package:vitalis_mobile/Model/treatment_to_patient.dart';
 
 const String url = 'https://skilledmist.backendless.app/api/data/';
@@ -106,4 +108,95 @@ Future<http.Response> updatePatient(Patient patient) {
       'birthdate' : patient.birthdate
     }),
   );
+}
+
+Future<List<Question>> getQuestions(String treatmentObjectId) async {
+  final response = await http.get(Uri.parse('${url}Question?where=treatmentid%3D\'$treatmentObjectId\''));
+
+  if (response.statusCode == 200) {
+    List<Question> questions = <Question>[];
+    for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
+      questions.add(Question(
+        objectId:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectId'],
+        questionid: jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['questionid'],
+        question:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['question'],
+        repetition: jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['repetition'],
+        time:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['time'],
+        type:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['type'],
+      ));
+    }
+    return questions;
+  } else {
+    throw Exception('Failed to load questions');
+  }
+}
+
+Future<List<Response>> getResponses(String questionObjectId) async {
+  final response = await http.get(Uri.parse('${url}Response?where=questionid%3D\'$questionObjectId\''));
+
+  if (response.statusCode == 200) {
+    List<Response> responses = <Response>[];
+    for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
+      responses.add(Response(
+        objectId:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectId'],
+        responseid: jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['responseid'],
+        datum:      jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['datum'],
+        response:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['response'],
+      ));
+    }
+    return responses;
+  } else {
+    throw Exception('Failed to load responses');
+  }
+}
+
+Future<List<Response>> getTodayResponses(String questionObjectId) async {
+  DateTime today = DateTime.now();
+  final response = await http.get(Uri.parse('${url}Response?where=questionid%3D\'$questionObjectId\'%20and%20datum%3E%3D\'${DateTime(today.year, today.month, today.day, 0,0,0,0,0).millisecondsSinceEpoch}\''));
+
+  if (response.statusCode == 200) {
+    List<Response> responses = <Response>[];
+    for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
+      responses.add(Response(
+        objectId:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectId'],
+        responseid: jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['responseid'],
+        datum:      jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['datum'],
+        response:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['response'],
+      ));
+    }
+    return responses;
+  } else {
+    print(response.body);
+    throw Exception('Failed to load responses');
+  }
+}
+
+Future<int> respondQuestion(Question question, String answer) async{
+  var result = await http.post(
+    Uri.parse('${url}Response'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode({
+      'datum': DateTime.now().millisecondsSinceEpoch,
+      'password': answer,
+    }),
+  );
+  if (result.statusCode != 200) {
+    return 1;
+  }
+  Response response = Response.fromJson(jsonDecode(utf8.decode(result.bodyBytes)));
+
+  var link = await http.post(
+      Uri.parse('${url}Response/${response.objectId}/questionid'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: "[\"${question.objectId}\"]"
+  );
+  if (link.statusCode != 200) {
+    return 1;
+  }
+
+  return 0;
 }
