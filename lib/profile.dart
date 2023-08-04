@@ -3,6 +3,8 @@ import 'package:vitalis_mobile/Model/patient.dart';
 import 'package:vitalis_mobile/settings.dart';
 import 'package:vitalis_mobile/utils.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'constants.dart' as Constants;
 import 'network.dart';
 
@@ -71,33 +73,46 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                 ],
               ),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(10,0,10,29),
+                padding: const EdgeInsets.fromLTRB(10,0,10,10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Image.asset("assets/img/props/back.png", height: 36,),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Image.asset("assets/img/props/back.png", height: 36,),
+                      ),
                     ),
                     Expanded(
                         child: Align(
                             alignment: Alignment.bottomCenter,
-                            child: Image.asset("assets/img/props/perfiltxt.png", height: 36,),
+                            child: Text( AppLocalizations.of(context)!.profile_title,
+                                style: const TextStyle(
+                                    fontFamily: 'GLORIOUS',
+                                    fontSize: 40,
+                                    color: Colors.white,
+                                    shadows: <Shadow>[Shadow(color: Colors.black38, offset: Offset(3.0, 3.0), blurRadius: 4.0)]
+                                )
+                            ),
                         )
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SettingsInterface(),
-                          ),
-                        );
-                      },
-                      child: Image.asset("assets/img/props/settings.png", height: 36,),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingsInterface(),
+                            ),
+                          );
+                        },
+                        child: Image.asset("assets/img/props/settings.png", height: 36,),
+                      ),
                     )
                   ],
                 ),
@@ -121,7 +136,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
             ),
             child: Column(
               children: [
-                const Text("ID PACIENTE:", style: TextStyle(fontSize: 15, color: Colors.white),),
+                Text(AppLocalizations.of(context)!.patient_id, style: const TextStyle(fontSize: 15, color: Colors.white),),
                 Text(patient.userkey, style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),)
               ],
             ),
@@ -131,9 +146,9 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
             child: Column(
               children: [
                 //Mail
-                const Align(
+                Align(
                   alignment: Alignment.bottomLeft,
-                  child: Text("Correo", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  child: Text(AppLocalizations.of(context)!.mail, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 7)),
                 //Mail Text Field
@@ -149,14 +164,14 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
                         ),
-                        hintText: 'Correo'
+                        hintText: AppLocalizations.of(context)!.mail
                     )
                 ),
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 //Name
-                const Align(
+                Align(
                   alignment: Alignment.bottomLeft,
-                  child: Text("Nombre", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  child: Text(AppLocalizations.of(context)!.name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 7)),
                 //Name Text Field
@@ -172,14 +187,14 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
                         ),
-                        hintText: 'Nombre'
+                        hintText: AppLocalizations.of(context)!.name
                     )
                 ),
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 //Surnames
-                const Align(
+                Align(
                   alignment: Alignment.bottomLeft,
-                  child: Text("Apellidos", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  child: Text(AppLocalizations.of(context)!.surname, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 7)),
                 //Surnames Text Field
@@ -195,14 +210,14 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
                         ),
-                        hintText: 'Apellidos'
+                        hintText: AppLocalizations.of(context)!.surname
                     )
                 ),
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 //Gender
-                const Align(
+                Align(
                   alignment: Alignment.bottomLeft,
-                  child: Text("Genero", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  child: Text(AppLocalizations.of(context)!.gender, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 7)),
                 //Gender Text Field
@@ -214,7 +229,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide.none,
                       ),
-                    hintText: dropdownValueGender.isEmpty ? "Gender" : dropdownValueGender,
+                    hintText: dropdownValueGender.isEmpty ? AppLocalizations.of(context)!.gender : dropdownValueGender,
                     hintStyle: dropdownValueGender.isEmpty ? const TextStyle() : const TextStyle(color: Colors.black),
                   ),
                   items: Constants.genders.map<DropdownMenuItem<String>>((String gender) {
@@ -233,9 +248,9 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                 ),
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 //Birthdate
-                const Align(
+                Align(
                   alignment: Alignment.bottomLeft,
-                  child: Text("Nacimiento", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                  child: Text(AppLocalizations.of(context)!.birthdate, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 7)),
                 //Birthdate Text Field
@@ -254,7 +269,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
                         ),
-                        hintText: 'Nacimiento'
+                        hintText: AppLocalizations.of(context)!.birthdate
                     )
                 ),
                 const Padding(padding: EdgeInsets.only(top: 25)),

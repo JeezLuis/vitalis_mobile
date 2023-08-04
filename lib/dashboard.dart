@@ -4,6 +4,8 @@ import 'package:vitalis_mobile/profile.dart';
 import 'package:vitalis_mobile/therapy.dart';
 import 'package:vitalis_mobile/utils.dart';
 import 'package:vitalis_mobile/network.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import 'Model/patient.dart';
 import 'Model/treatment_to_patient.dart';
@@ -73,9 +75,9 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                       ),
                     )
                 ),
-                treatments.isEmpty ? const Padding(
-                    padding: EdgeInsets.fromLTRB(20,30,20,0),
-                    child: Text("Sin tratamientos")
+                treatments.isEmpty ? Padding(
+                    padding: const EdgeInsets.fromLTRB(20,30,20,0),
+                    child: Text(AppLocalizations.of(context)!.dashboard_no_treatments)
                 )
                     :
                 Expanded(
@@ -155,7 +157,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                       onTap: () {
                         showProfile(context, false);
                       },
-                      child: const Text("¡Termina de completar tu perfil!", style: TextStyle(color: Colors.white, fontSize: 20,),),
+                      child: Text(AppLocalizations.of(context)!.dashboard_complete_profile, style: const TextStyle(color: Colors.white, fontSize: 20,),),
                     ),
                   )
               ),

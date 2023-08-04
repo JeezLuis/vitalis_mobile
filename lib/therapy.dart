@@ -7,6 +7,8 @@ import 'package:vitalis_mobile/Questions/number_question.dart';
 import 'package:vitalis_mobile/Questions/satisfaction_question.dart';
 import 'package:vitalis_mobile/network.dart';
 import 'package:vitalis_mobile/utils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import 'Model/question.dart';
 import 'Model/response.dart';
@@ -75,7 +77,7 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
                             },
                             child: Image.asset("assets/img/props/back.png", height: 36,),
                           ),
-                          const Padding(padding: EdgeInsets.only(left: 5)),
+                          const Padding(padding: EdgeInsets.only(left: 15)),
                           SizedBox(
                             height: 80,
                             child: Column(
@@ -94,13 +96,13 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
               )
           ),
           const Padding(padding: EdgeInsets.only(top: 30)),
-          const Text("Preguntas pendientes:", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),),
+          Text(AppLocalizations.of(context)!.therapy_pending, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),),
           questions.isEmpty ?
           Column(
-            children: const [
-              Padding(padding: EdgeInsets.only(top: 20)),
-              Text("No tienes preguntas pendientes", style: TextStyle(color: Colors.white, fontSize: 16 ),),
-              Icon(Icons.sentiment_very_satisfied_outlined, color: Colors.white,)
+            children: [
+              const Padding(padding: EdgeInsets.only(top: 20)),
+              Text(AppLocalizations.of(context)!.therapy_no_pending, style: const TextStyle(color: Colors.white, fontSize: 16 ),),
+              const Icon(Icons.sentiment_very_satisfied_outlined, color: Colors.white,)
             ],
           )
               :

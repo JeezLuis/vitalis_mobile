@@ -8,6 +8,9 @@
     "name" : "Nombre",
     "surname" : "Apellidos",
     "rpassword" : "Repetir contraseña",
+    "gender" : "Genero",
+    "birthdate" : "Nacimiento",
+    "patient_id" : "ID PACIENTE:",
 
     "answer_later" : "Contestar después",
     "answer" : "Responder",
@@ -16,6 +19,20 @@
     "answer_hint_month" : "Mes",
     "answer_hint_year" : "Año",
     "answer_hint_number" : "0",
+
+    "profile_title" : "perfil",
+
+    "settings_title" : "ajustes",
+    "settings_faceid" : "Activar FaceID",
+    "settings_faceid_disable" : "Desactivar FaceID",
+    "settings_language" : "Switch to English",
+    "settings_exit" : "Salir",
+
+    "therapy_pending" : "Preguntas pendientes:",
+    "therapy_no_pending" : "No tienes preguntas pendientes",
+
+    "dashboard_complete_profile" : "¡Termina de completar tu perfil!",
+    "dashboard_no_treatments" : "Sin tratamientos",
 
     "info_registered" : "¡Se ha registrado correctamente!",
 
