@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vitalis_mobile/Model/patient.dart';
 import 'package:vitalis_mobile/Model/treatment_to_patient.dart';
+import 'package:vitalis_mobile/Questions/bool_question.dart';
+import 'package:vitalis_mobile/Questions/number_question.dart';
+import 'package:vitalis_mobile/Questions/satisfaction_question.dart';
 import 'package:vitalis_mobile/network.dart';
 import 'package:vitalis_mobile/utils.dart';
 
@@ -218,8 +221,24 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
         );
         break;
       case 4: //Number
+        await showDialog(context: context,
+            useSafeArea: false,
+            builder: (BuildContext context){
+              return NumberQuestionDialog(
+                question: question,
+              );
+            }
+        );
         break;
       case 5: //Bool
+        await showDialog(context: context,
+            useSafeArea: false,
+            builder: (BuildContext context){
+              return BooleanQuestionDialog(
+                question: question,
+              );
+            }
+        );
         break;
       case 6: //Star
         await showDialog(context: context,
@@ -232,6 +251,14 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
         );
         break;
       case 7: //Rating
+        await showDialog(context: context,
+            useSafeArea: false,
+            builder: (BuildContext context){
+              return SatisfactionQuestionDialog(
+                question: question,
+              );
+            }
+        );
         break;
     }
   }

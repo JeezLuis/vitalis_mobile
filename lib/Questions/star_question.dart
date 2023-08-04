@@ -48,7 +48,7 @@ class _StarQuestionDialogState extends State<StarQuestionDialog> {
                         itemSize: 60,
                         glow: false,
                         initialRating: 2.5,
-                        minRating: 1,
+                        minRating: 0,
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,

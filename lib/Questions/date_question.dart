@@ -51,10 +51,13 @@ class _DateQuestionDialogState extends State<DateQuestionDialog> {
                         children: [
                           Expanded(
                             child: TextField(
+                              style: const TextStyle(fontSize: 40),
+                              textAlign: TextAlign.center,
                               keyboardType: TextInputType.number,
                               maxLength: 2,
                               controller: dayController,
                               decoration: InputDecoration(
+                                  counterText: "",
                                   filled: true,
                                   fillColor: Colors.white,
                                   border: OutlineInputBorder(
@@ -68,10 +71,13 @@ class _DateQuestionDialogState extends State<DateQuestionDialog> {
                           const Padding(padding: EdgeInsets.only(right: 10)),
                           Expanded(
                             child: TextField(
+                              style: const TextStyle(fontSize: 40),
+                              textAlign: TextAlign.center,
                               maxLength: 2,
                               keyboardType: TextInputType.number,
                               controller: monthController,
                               decoration: InputDecoration(
+                                  counterText: "",
                                   filled: true,
                                   fillColor: Colors.white,
                                   border: OutlineInputBorder(
@@ -84,12 +90,15 @@ class _DateQuestionDialogState extends State<DateQuestionDialog> {
                           ),
                           const Padding(padding: EdgeInsets.only(right: 10)),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width*0.4,
+                            width: MediaQuery.of(context).size.width*0.36,
                             child: TextField(
+                              style: const TextStyle(fontSize: 40),
+                              textAlign: TextAlign.center,
                               maxLength: 4,
                               keyboardType: TextInputType.number,
                               controller: yearController,
                               decoration: InputDecoration(
+                                  counterText: "",
                                   filled: true,
                                   fillColor: Colors.white,
                                   border: OutlineInputBorder(
@@ -102,7 +111,7 @@ class _DateQuestionDialogState extends State<DateQuestionDialog> {
                           ),
                         ],
                       ),
-                      const Padding(padding: EdgeInsets.only(top: 20)),
+                      const Padding(padding: EdgeInsets.only(top: 60)),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: HexColor("4ADFF7"),
