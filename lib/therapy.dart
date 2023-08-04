@@ -95,6 +95,15 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
           ),
           const Padding(padding: EdgeInsets.only(top: 30)),
           const Text("Preguntas pendientes:", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),),
+          questions.isEmpty ?
+          Column(
+            children: const [
+              Padding(padding: EdgeInsets.only(top: 20)),
+              Text("No tienes preguntas pendientes", style: TextStyle(color: Colors.white, fontSize: 16 ),),
+              Icon(Icons.sentiment_very_satisfied_outlined, color: Colors.white,)
+            ],
+          )
+              :
           Expanded(
               child: RefreshIndicator(
                 onRefresh: () => collectQuestions(),
