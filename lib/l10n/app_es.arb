@@ -23,7 +23,7 @@
     "profile_title" : "perfil",
 
     "settings_title" : "ajustes",
-    "settings_faceid" : "Activar FaceID",
+    "settings_faceid_enable" : "Activar FaceID",
     "settings_faceid_disable" : "Desactivar FaceID",
     "settings_language" : "Switch to English",
     "settings_exit" : "Salir",

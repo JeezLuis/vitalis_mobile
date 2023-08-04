@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:vitalis_mobile/Model/question.dart';
@@ -40,7 +42,7 @@ class _BooleanQuestionDialogState extends State<BooleanQuestionDialog> {
                 children: [
                   Image.asset("assets/img/background/logoxs.png", height: 48,),
                   Text(question.question!, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500, color: Colors.white),),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -103,9 +105,11 @@ class _BooleanQuestionDialogState extends State<BooleanQuestionDialog> {
     if(answer.isNotEmpty) {
       var result = await respondQuestion(question, answer);
       if (result == 0) {
+        // ignore: use_build_context_synchronously
         Navigator.pop(context);
       }
       else {
+        // ignore: use_build_context_synchronously
         alertError(AppLocalizations.of(context)!.err_system_failure(result.toString()), context);
       }
     }

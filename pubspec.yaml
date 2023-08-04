@@ -25,6 +25,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_rating_bar: ^4.0.1
+  local_auth: ^1.1.6
 
 dev_dependencies:
   flutter_test:

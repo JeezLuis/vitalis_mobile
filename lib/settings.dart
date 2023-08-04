@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:vitalis_mobile/Model/local_user.dart';
 import 'package:vitalis_mobile/utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -13,8 +15,16 @@ class SettingsInterface extends StatefulWidget {
 
 class _SettingsInterfaceState extends State<SettingsInterface> {
 
-  _SettingsInterfaceState();
+  LocalUser localUser = LocalUser();
 
+
+  @override
+  void initState() {
+    initStateData();
+    super.initState();
+  }
+
+  _SettingsInterfaceState();
 
   @override
   Widget build(BuildContext context) {
@@ -77,24 +87,17 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
               children: [
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 GestureDetector(
-                  //TODO: Activar FaceID
-                  onTap: () {},
+                  onTap: () {
+                    setupFaceID();
+                  },
                   child: Row(
                     children: [
                       const Icon(Icons.fingerprint_outlined, size: 40,),
                       const Padding(padding: EdgeInsets.only(left: 20)),
-                      Text(AppLocalizations.of(context)!.settings_faceid_enable, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 32),),
-                    ],
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.only(top: 20)),
-                GestureDetector(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      const Icon(Icons.language_outlined, size: 40,),
-                      const Padding(padding: EdgeInsets.only(left: 20)),
-                      Text(AppLocalizations.of(context)!.settings_language, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 32),),
+                      Text( localUser.faceid == true ? AppLocalizations.of(context)!.settings_faceid_disable :
+                        AppLocalizations.of(context)!.settings_faceid_enable ,
+                        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 32),
+                      ),
                     ],
                   ),
                 ),
@@ -115,6 +118,23 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
         ],
       ),
     );
+  }
+
+  void setupFaceID() async {
+    LocalAuthentication localAuth = LocalAuthentication();
+    if (localUser.faceid != null) {
+      var result = await authenticate(localAuth);
+      if(result == true){
+        localUser.faceid = !localUser.faceid!;
+        await setLocalUser(localUser);
+      }
+    }
+    setState(() {});
+  }
+
+  void initStateData() async {
+    localUser = await getLocalUser();
+    setState(() {});
   }
 }
 

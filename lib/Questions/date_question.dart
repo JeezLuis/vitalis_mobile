@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +19,7 @@ class DateQuestionDialog extends StatefulWidget {
   const DateQuestionDialog({Key? key, required this.question}) : super(key: key);
 
   @override
+  // ignore: no_logic_in_create_state, library_private_types_in_public_api
   _DateQuestionDialogState createState() => _DateQuestionDialogState(question);
 }
 

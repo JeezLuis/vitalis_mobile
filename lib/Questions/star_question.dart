@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:vitalis_mobile/Model/question.dart';
@@ -12,6 +14,7 @@ class StarQuestionDialog extends StatefulWidget {
   const StarQuestionDialog({Key? key, required this.question}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api, no_logic_in_create_state
   _StarQuestionDialogState createState() => _StarQuestionDialogState(question);
 }
 
@@ -41,7 +44,7 @@ class _StarQuestionDialogState extends State<StarQuestionDialog> {
                 children: [
                   Image.asset("assets/img/background/logoxs.png", height: 48,),
                   Text(question.question!, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500, color: Colors.white),),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Center(
                       child: RatingBar(
@@ -52,7 +55,7 @@ class _StarQuestionDialogState extends State<StarQuestionDialog> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 5.0),
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 5.0),
                         /*itemBuilder: (context, _) => const Icon(
                           Icons.star_border,
                           color: Colors.amber,

@@ -1,16 +1,16 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalUser {
-  final String?  mail;
-  final String?  password;
-  final bool?    faceid;
-  final String?  userkey;
+  String?  mail;
+  String?  password;
+  bool?    faceid;
+  String?  userkey;
 
-  const LocalUser({
-    required this.mail,
-    required this.password,
-    required this.faceid,
-    required this.userkey,
+  LocalUser({
+    this.mail,
+    this.password,
+    this.faceid,
+    this.userkey,
   });
 }
 
@@ -28,6 +28,6 @@ Future<LocalUser> getLocalUser() async{
     return LocalUser(mail: prefs.getString('mail'), password: prefs.getString('password'), faceid: prefs.getBool('faceid'), userkey: prefs.getString('userkey'));
   }
   else{
-    return const LocalUser(mail: null, password: null, faceid: null, userkey: null);
+    return LocalUser(mail: null, password: null, faceid: null, userkey: null);
   }
 }

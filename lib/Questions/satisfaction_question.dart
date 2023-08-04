@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:vitalis_mobile/Model/question.dart';
@@ -11,6 +13,7 @@ class SatisfactionQuestionDialog extends StatefulWidget {
   const SatisfactionQuestionDialog({Key? key, required this.question}) : super(key: key);
 
   @override
+  // ignore: no_logic_in_create_state, library_private_types_in_public_api
   _SatisfactionQuestionDialogState createState() => _SatisfactionQuestionDialogState(question);
 }
 
@@ -40,7 +43,7 @@ class _SatisfactionQuestionDialogState extends State<SatisfactionQuestionDialog>
                 children: [
                   Image.asset("assets/img/background/logoxs.png", height: 48,),
                   Text(question.question!, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500, color: Colors.white),),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,

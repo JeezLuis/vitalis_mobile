@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:vitalis_mobile/Model/local_user.dart';
 import 'package:vitalis_mobile/dashboard.dart';
 import 'package:vitalis_mobile/utils.dart';
@@ -18,8 +21,16 @@ class LoginInterface extends StatefulWidget {
 
 class _LoginInterfaceState extends State<LoginInterface> {
 
+  LocalUser localUser = LocalUser();
+
   _LoginInterfaceState();
 
+
+  @override
+  void initState() {
+    checkFaceID();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +112,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
                                   alertError(AppLocalizations.of(context)!.err_missing_fields, context);
                                 }
                                 else{
-                                  logUser(emailController.text, passController.text, context);
+                                  logUser(emailController.text, passController.text);
                                 }
                               },
                               child: Text(AppLocalizations.of(context)!.login),
@@ -129,17 +140,15 @@ class _LoginInterfaceState extends State<LoginInterface> {
     );
   }
 
-  logUser(String email, String password, BuildContext? context) async {
+  logUser(String email, String password) async {
     //Check if mail and password combinatgion exists
     var response = await logPatient(email, generateMd5(password));
     if(response.isEmpty){
-      if(context != null){
-        alertError(AppLocalizations.of(context)!.err_auth_fail, context);
-      }
+      alertError(AppLocalizations.of(context)!.err_auth_fail, context);
     }
     else{
       //Save credentials locally
-      LocalUser localUser = await getLocalUser();
+      localUser = await getLocalUser();
       if(localUser.mail != email){
         setLocalUser(LocalUser(mail: email, password: password, faceid: false, userkey: response.elementAt(0).userkey));
       }
@@ -150,12 +159,24 @@ class _LoginInterfaceState extends State<LoginInterface> {
 
       //Navigate to the main dashboard of the user
       Navigator.push(
-        context!,
+        context,
         MaterialPageRoute(
           builder: (context) => const DashboardInterface(),
         ),
 
       );
+    }
+  }
+
+  void checkFaceID() async {
+    LocalAuthentication localAuth = LocalAuthentication();
+
+    localUser = await getLocalUser();
+    if(localUser.faceid == true){
+      var result = await authenticate(localAuth);
+      if(result == true){
+        logUser(localUser.mail!, localUser.password!);
+      }
     }
   }
 }

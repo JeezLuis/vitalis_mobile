@@ -166,7 +166,6 @@ Future<List<Response>> getTodayResponses(String questionObjectId) async {
     }
     return responses;
   } else {
-    print(response.body);
     throw Exception('Failed to load responses');
   }
 }

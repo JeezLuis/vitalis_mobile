@@ -171,15 +171,18 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
       passController.text = '';
       reppassController.text = '';
 
+      // ignore: use_build_context_synchronously
       alertInfo(AppLocalizations.of(context)!.info_registered, context);
     } else {
       switch(jsonDecode(response.body)['code']){
         //Wrong email format
         case 8023:
+          // ignore: use_build_context_synchronously
           alertError(AppLocalizations.of(context)!.err_mail_format, context);
           break;
         //User yet registered
         case 1155:
+          // ignore: use_build_context_synchronously
           alertError(AppLocalizations.of(context)!.err_user_exists, context);
           break;
       }

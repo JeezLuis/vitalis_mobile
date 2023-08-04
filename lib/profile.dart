@@ -5,7 +5,7 @@ import 'package:vitalis_mobile/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'constants.dart' as Constants;
+import 'constants.dart' as constants;
 import 'network.dart';
 
 final TextEditingController emailController = TextEditingController();
@@ -20,6 +20,7 @@ class ProfileInterface extends StatefulWidget {
   const ProfileInterface({super.key, required this.patient, required this.viewMode});
 
   @override
+  // ignore: no_logic_in_create_state
   State<StatefulWidget> createState() => _ProfileInterfaceState(patient, viewMode);
 }
 
@@ -232,7 +233,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
                     hintText: dropdownValueGender.isEmpty ? AppLocalizations.of(context)!.gender : dropdownValueGender,
                     hintStyle: dropdownValueGender.isEmpty ? const TextStyle() : const TextStyle(color: Colors.black),
                   ),
-                  items: Constants.genders.map<DropdownMenuItem<String>>((String gender) {
+                  items: constants.genders.map<DropdownMenuItem<String>>((String gender) {
                     return DropdownMenuItem<String>(
                       value: gender,
                       child: Text(gender),

@@ -26,6 +26,7 @@ class TherapyInterface extends StatefulWidget {
   const TherapyInterface({super.key, required this.patient, required this.treatment});
 
   @override
+  // ignore: no_logic_in_create_state
   State<StatefulWidget> createState() => _TherapyInterfaceState(patient, treatment);
 }
 
@@ -40,6 +41,7 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
   @override
   void initState() {
     collectQuestions();
+    super.initState();
   }
 
   @override
@@ -156,8 +158,8 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
 
   collectQuestions() async {
     questions = <Question>[];
-    var aux_questions = await getQuestions(treatment.objectid!);
-    for(Question question in aux_questions){
+    var auxQuestions = await getQuestions(treatment.objectid!);
+    for(Question question in auxQuestions){
       //Check if question has been answered
       List<Response> responses = await getTodayResponses(question.objectId!);
       if(responses.isNotEmpty) question.answered = true;

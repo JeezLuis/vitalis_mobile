@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:vitalis_mobile/Model/question.dart';
@@ -13,6 +15,7 @@ class TextXLQuestionDialog extends StatefulWidget {
   const TextXLQuestionDialog({Key? key, required this.question}) : super(key: key);
 
   @override
+  // ignore: no_logic_in_create_state, library_private_types_in_public_api
   _TextXLQuestionDialogState createState() => _TextXLQuestionDialogState(question);
 }
 

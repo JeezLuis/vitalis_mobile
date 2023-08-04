@@ -19,7 +19,7 @@ class DashboardInterface extends StatefulWidget {
 
 class _DashboardInterfaceState extends State<DashboardInterface> {
 
-  LocalUser localUser = const LocalUser(mail: null, password: null, faceid: null, userkey: null);
+  LocalUser localUser = LocalUser(mail: null, password: null, faceid: null, userkey: null);
   bool hasData = true;
   Patient patient = Patient(userid: 0, userkey: '', mail: '', password: '', objectid: null, name: null, surnames: null, birthdate: null, gender: null);
   List<TreatmentToPatient> treatments = <TreatmentToPatient>[];

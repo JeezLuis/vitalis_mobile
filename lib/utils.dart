@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:quickalert/quickalert.dart';
 import 'dart:convert';
 import 'package:convert/convert.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:crypto/crypto.dart' as crypto;
 
 ///Generates HexColor from hex string
@@ -46,5 +48,33 @@ generateMd5(String data) {
   var md5 = crypto.md5;
   var digest = md5.convert(content);
   return hex.encode(digest.bytes);
+}
+
+///Check if biometric auth is available
+Future<bool> hasBiometrics(LocalAuthentication localAuth) async {
+  try {
+    return await localAuth.canCheckBiometrics;
+  } on PlatformException {
+    return false;
+  }
+}
+
+///Authenticate using biometric
+Future<bool> authenticate(LocalAuthentication localAuth) async {
+  final hasBiometric = await hasBiometrics(localAuth);
+
+  if(hasBiometric) {
+    return await localAuth.authenticate(
+      localizedReason: "Scan fingerprint to authenticate",
+      //Shows error dialog for system-related issues
+      useErrorDialogs: true,
+      //If true, auth dialog is show when app open from background
+      stickyAuth: true,
+      //Prevent non-biometric auth like such as pin, passcode.
+      biometricOnly: true,
+  );
+  } else {
+  return false;
+  }
 }
 
