@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: const Locale('es'),
+      locale: const Locale('en'),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }

@@ -3,6 +3,8 @@ import 'package:vitalis_mobile/Model/local_user.dart';
 import 'package:vitalis_mobile/dashboard.dart';
 import 'package:vitalis_mobile/utils.dart';
 import 'package:vitalis_mobile/network.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passController = TextEditingController();
@@ -43,8 +45,8 @@ class _LoginInterfaceState extends State<LoginInterface> {
                           children: [
                             const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
                             //Title
-                            const Text("entrar",
-                                style: TextStyle(
+                            Text(AppLocalizations.of(context)!.login.toLowerCase(),
+                                style: const TextStyle(
                                     fontFamily: 'GLORIOUS',
                                     fontSize: 70,
                                     color: Colors.white,
@@ -61,7 +63,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: BorderSide.none,
                                   ),
-                                  hintText: 'Correo'
+                                  hintText: AppLocalizations.of(context)!.mail
                               ),
                             ),
                             const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
@@ -78,7 +80,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
                                       borderRadius: BorderRadius.circular(10),
                                       borderSide: BorderSide.none,
                                     ),
-                                    hintText: 'Contraseña'
+                                    hintText: AppLocalizations.of(context)!.password
                                 )
                             ),
                             const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
@@ -96,13 +98,13 @@ class _LoginInterfaceState extends State<LoginInterface> {
                               ),
                               onPressed: () {
                                 if(emailController.text.isEmpty || passController.text.isEmpty){
-                                  alertError("Por favor, completa todos los campos.", context);
+                                  alertError(AppLocalizations.of(context)!.err_missing_fields, context);
                                 }
                                 else{
                                   logUser(emailController.text, passController.text, context);
                                 }
                               },
-                              child: const Text("Entrar"),
+                              child: Text(AppLocalizations.of(context)!.login),
                             ),
                             //Back Button
                             TextButton(
@@ -115,7 +117,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
                                 passController.text = '';
                                 Navigator.pop(context);
                               },
-                              child: const Text("Atrás"),
+                              child: Text(AppLocalizations.of(context)!.back),
                             ),
                           ],
                         ),
@@ -132,7 +134,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
     var response = await logPatient(email, generateMd5(password));
     if(response.isEmpty){
       if(context != null){
-        alertError("Esta combinación de ususario y contraseña no existe.", context);
+        alertError(AppLocalizations.of(context)!.err_auth_fail, context);
       }
     }
     else{

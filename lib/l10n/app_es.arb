@@ -17,7 +17,17 @@
     "answer_hint_year" : "Año",
     "answer_hint_number" : "0",
 
+    "info_registered" : "¡Se ha registrado correctamente!",
+
     "err_missing_fields" : "Porfavor, completa todos los campos",
+
+    "err_auth_fail" : "Esta combinación de ususario y contraseña no existe",
+    "err_pass_err" : "Las contraseñas no coinciden",
+    "err_pass_format" : "Constraseña no valida, debe tener al menos una mayuscula, una minuscula, un digito y 8 caracteres",
+    "err_mail_format" : "El formato de la dirección de correo es incorrecto",
+    "err_user_exists" : "Usuario ya registrado",
+
+
     "err_wrong_date_format" : "Formato de la fecha incorrecto",
     "err_system_failure" : "Error {errorCode}, por favor contacta con tu administrador",
     "@err_system_failure": {

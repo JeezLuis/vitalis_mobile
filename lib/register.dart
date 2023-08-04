@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:vitalis_mobile/network.dart';
 import 'package:vitalis_mobile/utils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passController = TextEditingController();
@@ -45,8 +47,8 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
                       children: [
                         const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
                         //Register title
-                        const Text("registro",
-                            style: TextStyle(
+                        Text(AppLocalizations.of(context)!.registert.toLowerCase(),
+                            style: const TextStyle(
                                 fontFamily: 'GLORIOUS',
                                 fontSize: 70,
                                 color: Colors.white,
@@ -63,7 +65,7 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide.none,
                               ),
-                              hintText: 'Correo'
+                              hintText: AppLocalizations.of(context)!.mail
                           ),
                         ),
                         const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
@@ -80,7 +82,7 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none,
                                 ),
-                                hintText: 'Contraseña'
+                                hintText: AppLocalizations.of(context)!.password
                             )
                         ),
                         const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
@@ -97,7 +99,7 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none,
                                 ),
-                                hintText: 'Repetir Contraseña'
+                                hintText: AppLocalizations.of(context)!.rpassword
                             )
                         ),
                         const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
@@ -114,7 +116,7 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
                             elevation: 0,
                           ),
                           onPressed: () => registerUser(context),
-                          child: const Text("Registrar"),
+                          child: Text(AppLocalizations.of(context)!.register),
                         ),
                         const Padding(padding: EdgeInsets.fromLTRB(0,30,0,0)),
                         //Back Button
@@ -129,7 +131,7 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
                             reppassController.text = '';
                             Navigator.pop(context);
                           },
-                          child: const Text("Atrás"),
+                          child: Text(AppLocalizations.of(context)!.back),
                         ),
                       ],
                     ),
@@ -144,20 +146,20 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
   registerUser(BuildContext context) async {
     //Check if all fields have been completed
     if(emailController.text.isEmpty || passController.text.isEmpty || reppassController.text.isEmpty) {
-      alertError("Por favor, rellena todos los campos", context);
+      alertError(AppLocalizations.of(context)!.err_missing_fields, context);
       return 0;
     }
 
     //Check that both passwords are the same
     if(passController.text != reppassController.text){
-      alertError("La constraseña no coincide", context);
+      alertError(AppLocalizations.of(context)!.err_pass_err, context);
       return 0;
     }
 
     //Check if password is safe
     RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
     if (!regex.hasMatch(passController.text)) {
-      alertError("La constraseña no valida, debe tener al menos una mayuscula, una minuscula, un digito y 8 caracteres.", context);
+      alertError(AppLocalizations.of(context)!.err_pass_format, context);
       return 0;
     }
 
@@ -169,16 +171,16 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
       passController.text = '';
       reppassController.text = '';
 
-      alertInfo("¡Se ha registrado correctamente!", context);
+      alertInfo(AppLocalizations.of(context)!.info_registered, context);
     } else {
       switch(jsonDecode(response.body)['code']){
         //Wrong email format
         case 8023:
-          alertError("El formato de la dirección de correo es incorrecto.", context);
+          alertError(AppLocalizations.of(context)!.err_mail_format, context);
           break;
         //User yet registered
         case 1155:
-          alertError("Usuario ya registrado", context);
+          alertError(AppLocalizations.of(context)!.err_user_exists, context);
           break;
       }
     }

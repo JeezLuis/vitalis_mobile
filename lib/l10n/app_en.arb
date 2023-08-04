@@ -17,7 +17,16 @@
     "answer_hint_year" : "Year",
     "answer_hint_number" : "00",
 
+    "info_registered" : "¡Se ha registrado correctamente!",
+
     "err_missing_fields" : "Please, fill missing fields",
+
+    "err_auth_fail" : "The password and mail combination does not exist",
+    "err_pass_err" : "Passwords don't match",
+    "err_pass_format" : "Invalid password, must have at least one uppercase, one lowercase, one digit and 8 characters",
+    "err_mail_format" : "El formato de la dirección de correo es incorrecto",
+    "err_user_exists" : "Usuario ya registrado",
+
     "err_wrong_date_format" : "Wrong date format",
     "err_system_failure" : "Error {errorCode}, please contact your administrator",
     "@err_system_failure": {
