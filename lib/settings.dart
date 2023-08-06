@@ -1,3 +1,4 @@
+import 'package:backendless_sdk/backendless_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:vitalis_mobile/Model/local_user.dart';
@@ -102,7 +103,9 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
                 ),
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 GestureDetector(
-                  onTap: () {Navigator.of(context).popUntil((route) => route.isFirst);},
+                  onTap: () {
+                      logOut();
+                    },
                   child: Row(
                     children: [
                       const Icon(Icons.logout_outlined, size: 40,),
@@ -117,6 +120,14 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
         ],
       ),
     );
+  }
+
+  ///Logs out user from Backendless and returns to the main screen
+  void logOut() async {
+    Backendless.userService.logout().then((response) {
+      // user has been logged out.
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    });
   }
 
   ///Enable or disable FaceID depending on [localUser.faceid]

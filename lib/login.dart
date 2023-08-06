@@ -1,11 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:vitalis_mobile/Model/local_user.dart';
 import 'package:vitalis_mobile/dashboard.dart';
 import 'package:vitalis_mobile/utils.dart';
-import 'package:vitalis_mobile/network.dart';
+import 'package:backendless_sdk/backendless_sdk.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
@@ -144,15 +145,12 @@ class _LoginInterfaceState extends State<LoginInterface> {
   ///Log user into the application
   logUser(String email, String password) async {
     //Check if mail and password combinatgion exists
-    var response = await logPatient(email, generateMd5(password));
-    if(response.isEmpty){
-      alertError(AppLocalizations.of(context)!.err_auth_fail, context);
-    }
-    else{
+    localUser = await getLocalUser();
+    await Backendless.userService.login(email, password, true).then((user) {
+      // user has been logged in
       //Save credentials locally
-      localUser = await getLocalUser();
       if(localUser.mail != email){
-        setLocalUser(LocalUser(mail: email, password: password, faceid: false, userkey: response.elementAt(0).userkey));
+        setLocalUser(LocalUser(mail: email, password: password, faceid: false));
       }
 
       //Empty input texts
@@ -167,7 +165,21 @@ class _LoginInterfaceState extends State<LoginInterface> {
         ),
 
       );
-    }
+    })
+    .catchError((error){
+      PlatformException platformException = error;
+      switch (platformException.code) {
+        //Error incorrect credentials
+        case "3003":
+          alertError(AppLocalizations.of(context)!.err_auth_fail, context);
+          break;
+        default:
+          alertError(platformException.details, context);
+          break;
+      }
+      //Error incorrect credentials
+    })
+    ;
   }
 
   ///Checks if FaceID is enabled from [localUser.faceid], if so: logins with saved credentials

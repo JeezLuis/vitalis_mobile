@@ -1,8 +1,6 @@
 class Patient {
-  int       userid;
   String    userkey;
-  String    mail;
-  String    password;
+  String    email;
   String?   objectid;
   String?   name;
   String?   surnames;
@@ -10,10 +8,8 @@ class Patient {
   String?   gender;
 
   Patient({
-    required this.userid,
     required this.userkey,
-    required this.mail,
-    required this.password,
+    required this.email,
     required this.objectid,
     required this.name,
     required this.surnames,
@@ -23,10 +19,8 @@ class Patient {
 
   factory Patient.fromJson(Map<String, dynamic> json) {
     return Patient(
-      userid:     json['patientid'],
       userkey:    json['userkey'],
-      mail:       json['mail'],
-      password:   json['password'],
+      email:       json['email'],
       objectid:   json['objectId'],
       name:       json['name'],
       surnames:   json['surnames'],

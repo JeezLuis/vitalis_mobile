@@ -7,56 +7,18 @@ import 'package:vitalis_mobile/Model/treatment_to_patient.dart';
 
 const String url = 'https://skilledmist.backendless.app/api/data/';
 
-///Check if patient with given [mail] and [password] exists in the database
-Future<List<Patient>> logPatient(String mail, String password) async {
-  final response = await http.get(Uri.parse('${url}Patient?where=password%20%3D%20\'$password\'%20AND%20mail%3D\'$mail\''));
-  if (response.statusCode == 200) {
-    List<Patient> patients = <Patient>[];
-    for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
-      patients.add(Patient(
-        userid:     jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['patientid'],
-        userkey:    jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['userkey'],
-        mail:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['mail'],
-        password:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['password'],
-        objectid:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectId'],
-        name:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['name'],
-        surnames:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['surnames'],
-        birthdate:  jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['birthdate'],
-        gender:     jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['gender'],
-      ));
-    }
-    return patients;
-  } else {
-    throw Exception('Failed to load Patient');
-  }
-}
 
-///Register patient to the database with gien input fields
-Future<http.Response> registerPatient(String mail, String password) async{
-  return http.post(
-    Uri.parse('${url}Patient'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'mail': mail,
-      'password': password,
-    }),
-  );
-}
 
 ///Get information about specific patient using [mail]
 Future<List<Patient>> getPatient(String mail) async {
-  final response = await http.get(Uri.parse('${url}Patient?where=mail%3D\'$mail\''));
+  final response = await http.get(Uri.parse('${url}Users?where=email%3D\'$mail\''));
 
   if (response.statusCode == 200) {
     List<Patient> patients = <Patient>[];
     for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
       patients.add(Patient(
-        userid:     jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['patientid'],
         userkey:    jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['userkey'],
-        mail:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['mail'],
-        password:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['password'],
+        email:      jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['email'],
         objectid:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectId'],
         name:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['name'],
         surnames:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['surnames'],
@@ -71,20 +33,18 @@ Future<List<Patient>> getPatient(String mail) async {
 }
 
 ///Get treatments related to a [patientId]
-Future<List<TreatmentToPatient>> getTreatments(int patientId) async {
-  final response = await http.get(Uri.parse('${url}TreatmentToPatient?where=patientid%3D$patientId'));
+Future<List<TreatmentToPatient>> getTreatments(String patientId) async {
+  final response = await http.get(Uri.parse('${url}TreatmentToPatient?where=patientObjectId%3D\'$patientId\''));
   if (response.statusCode == 200) {
     List<TreatmentToPatient> patients = <TreatmentToPatient>[];
     for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
       patients.add(TreatmentToPatient(
         objectid:           jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectId'],
-        treatmentid:        jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['treatmentid'],
         title:              jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['title'],
         observations:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['observations'],
         startdate:          jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['startdate'],
         state:              jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['state'],
         patientMail:        jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['patientMail'],
-        patientid:          jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['patientid'],
         patientObjectId:    jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['patientObjectId'],
         treatmentTypeName:  jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['treatmentTypeName'],
         doctorSurname:      jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['doctorSurname'],
@@ -100,7 +60,7 @@ Future<List<TreatmentToPatient>> getTreatments(int patientId) async {
 
 ///Updates given [patient] information
 Future<http.Response> updatePatient(Patient patient) {
-  return http.put(Uri.parse('${url}Patient/${patient.objectid}'),
+  return http.put(Uri.parse('${url}Users/${patient.objectid}'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -122,7 +82,6 @@ Future<List<Question>> getQuestions(String treatmentObjectId) async {
     for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
       questions.add(Question(
         objectId:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectId'],
-        questionid: jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['questionid'],
         question:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['question'],
         repetition: jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['repetition'],
         time:       jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['time'],
@@ -144,7 +103,6 @@ Future<List<Response>> getResponses(String questionObjectId) async {
     for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
       responses.add(Response(
         objectId:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectId'],
-        responseid: jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['responseid'],
         datum:      jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['datum'],
         response:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['response'],
       ));
@@ -165,7 +123,6 @@ Future<List<Response>> getTodayResponses(String questionObjectId) async {
     for(var i = 0; i < jsonDecode(utf8.decode(response.bodyBytes)).length; i++){
       responses.add(Response(
         objectId:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['objectId'],
-        responseid: jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['responseid'],
         datum:      jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['datum'],
         response:   jsonDecode(utf8.decode(response.bodyBytes)).elementAt(i)['response'],
       ));
@@ -185,7 +142,7 @@ Future<int> respondQuestion(Question question, String answer) async{
     },
     body: jsonEncode({
       'datum': DateTime.now().millisecondsSinceEpoch,
-      'password': answer,
+      'response': answer,
     }),
   );
   if (result.statusCode != 200) {

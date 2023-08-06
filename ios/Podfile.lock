@@ -1,17 +1,34 @@
 PODS:
+  - backendless_sdk (0.0.1):
+    - BackendlessSwift (= 6.7.8)
+    - Flutter
+  - BackendlessSwift (6.7.8):
+    - Socket.IO-Client-Swift (~> 16.0)
   - Flutter (1.0.0)
   - local_auth (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - Socket.IO-Client-Swift (16.0.1):
+    - Starscream (~> 4.0)
+  - Starscream (4.0.4)
 
 DEPENDENCIES:
+  - backendless_sdk (from `.symlinks/plugins/backendless_sdk/ios`)
   - Flutter (from `Flutter`)
   - local_auth (from `.symlinks/plugins/local_auth/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
 
+SPEC REPOS:
+  trunk:
+    - BackendlessSwift
+    - Socket.IO-Client-Swift
+    - Starscream
+
 EXTERNAL SOURCES:
+  backendless_sdk:
+    :path: ".symlinks/plugins/backendless_sdk/ios"
   Flutter:
     :path: Flutter
   local_auth:
@@ -20,9 +37,13 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_foundation/ios"
 
 SPEC CHECKSUMS:
+  backendless_sdk: a9f9ee93f5e127ae8dd4253baa1b6e3c202afc5d
+  BackendlessSwift: 1e3c924e9704b846442d957ba958135e5c9097a6
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   local_auth: 1740f55d7af0a2e2a8684ce225fe79d8931e808c
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 

@@ -26,6 +26,8 @@ dependencies:
     sdk: flutter
   flutter_rating_bar: ^4.0.1
   local_auth: ^1.1.6
+  backendless_sdk: ^7.3.7
+
 
 dev_dependencies:
   flutter_test:

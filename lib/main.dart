@@ -1,3 +1,4 @@
+import 'package:backendless_sdk/backendless_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:vitalis_mobile/login.dart';
 import 'package:vitalis_mobile/register.dart';
@@ -38,6 +39,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -135,5 +138,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Backendless.initApp(
+        applicationId: "8103F34C-99A5-D89A-FF38-4643CA0C6800",
+        androidApiKey: "74E76082-055E-455F-9121-5FE3E020F2E9",
+        iosApiKey: "F5B3CF1A-C6D5-49F4-AEEC-3F0D61E9C3E5");
   }
 }

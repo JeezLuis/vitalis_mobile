@@ -1,6 +1,5 @@
 class Question {
   String? objectId;
-  int?    questionid;
   String? question;
   String? repetition;
   String? time;
@@ -9,7 +8,6 @@ class Question {
 
   Question({
     this.objectId,
-    this.questionid,
     this.question,
     this.repetition,
     this.time,
@@ -19,7 +17,6 @@ class Question {
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       objectId:   json['objectId'],
-      questionid: json['questionid'],
       question:   json['question'],
       repetition: json['repetition'],
       time:       json['time'],

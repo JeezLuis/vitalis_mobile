@@ -1,10 +1,8 @@
-import 'dart:convert';
-
+import 'package:backendless_sdk/backendless_sdk.dart';
 import 'package:flutter/material.dart';
-import 'package:vitalis_mobile/network.dart';
+import 'package:flutter/services.dart';
 import 'package:vitalis_mobile/utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passController = TextEditingController();
@@ -164,9 +162,12 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
       return 0;
     }
 
-    //Send POST method
-    var response = await registerPatient(emailController.text, generateMd5(passController.text));
-    if (response.statusCode == 200) {
+    // do not forget to call Backendless.initApp when your app initializes
+    BackendlessUser user = BackendlessUser()
+      ..email = emailController.text
+      ..password = passController.text;
+
+    await Backendless.userService.register(user).then((registeredUser) {
       //Clear all input fields
       emailController.text = '';
       passController.text = '';
@@ -174,20 +175,24 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
 
       // ignore: use_build_context_synchronously
       alertInfo(AppLocalizations.of(context)!.info_registered, context);
-    } else {
-      switch(jsonDecode(response.body)['code']){
-        //Wrong email format
-        case 8023:
-          // ignore: use_build_context_synchronously
+    }).catchError((error) {
+      PlatformException platformException = error;
+      switch (platformException.code) {
+      //Wrong email format
+        case "3040":
+        // ignore: use_build_context_synchronously
           alertError(AppLocalizations.of(context)!.err_mail_format, context);
           break;
-        //User yet registered
-        case 1155:
-          // ignore: use_build_context_synchronously
+      //User yet registered
+        case "3033":
+        // ignore: use_build_context_synchronously
           alertError(AppLocalizations.of(context)!.err_user_exists, context);
           break;
+        default:
+          alertError(platformException.details, context);
+          break;
       }
-    }
+    });
   }
 }
 

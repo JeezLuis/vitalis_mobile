@@ -6,7 +6,6 @@ import 'package:vitalis_mobile/utils.dart';
 import 'package:vitalis_mobile/network.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 import 'Model/patient.dart';
 import 'Model/treatment_to_patient.dart';
 
@@ -19,11 +18,11 @@ class DashboardInterface extends StatefulWidget {
 
 class _DashboardInterfaceState extends State<DashboardInterface> {
   ///Local user stored inside internal storage
-  LocalUser localUser = LocalUser(mail: null, password: null, faceid: null, userkey: null);
+  LocalUser localUser = LocalUser(mail: null, password: null, faceid: null);
   ///Check if user has completed his profile
   bool hasData = true;
   ///Logged patient
-  Patient patient = Patient(userid: 0, userkey: '', mail: '', password: '', objectid: null, name: null, surnames: null, birthdate: null, gender: null);
+  Patient patient = Patient(userkey: '', email: '', objectid: null, name: null, surnames: null, birthdate: null, gender: null);
   ///Treatments assigned to [patient]
   List<TreatmentToPatient> treatments = <TreatmentToPatient>[];
 
@@ -197,7 +196,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
 
   ///Sorts [treatments] so the paused ones stack at the end
   getSortTreatments() async{
-    treatments = await getTreatments(patient.userid);
+    treatments = await getTreatments(patient.objectid!);
     int compareNames(TreatmentToPatient treatment1 , TreatmentToPatient treatment2) {
       if(treatment1.state == true   && treatment1.state == false) return 1;
       if(treatment1.state == false  && treatment1.state == true)  return 0;

@@ -44,7 +44,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
     birthdayController.text = '';
     dropdownValueGender = '';
 
-    emailController.text = patient.mail;
+    emailController.text = patient.email;
     if(patient.name != null) nameController.text = patient.name!;
     if(patient.surnames != null) surnameController.text = patient.surnames!;
     if(patient.gender != null) dropdownValueGender = patient.gender!;
