@@ -20,6 +20,7 @@ class TextQuestionDialog extends StatefulWidget {
 }
 
 class _TextQuestionDialogState extends State<TextQuestionDialog> {
+  ///Question the response is for
   final Question question;
 
   _TextQuestionDialogState(this.question);
@@ -97,6 +98,7 @@ class _TextQuestionDialogState extends State<TextQuestionDialog> {
     );
   }
 
+  ///Post response to database assigning it to the given [question]
   sendResponse() async {
     if(answerController.text.isNotEmpty) {
       var result = await respondQuestion(question, answerController.text);

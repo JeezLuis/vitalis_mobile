@@ -24,6 +24,7 @@ class DateQuestionDialog extends StatefulWidget {
 }
 
 class _DateQuestionDialogState extends State<DateQuestionDialog> {
+  ///Question the response is for
   final Question question;
 
   _DateQuestionDialogState(this.question);
@@ -156,6 +157,7 @@ class _DateQuestionDialogState extends State<DateQuestionDialog> {
     );
   }
 
+  ///Post response to database assigning it to the given [question]
   sendResponse() async {
     var dateString = "${dayController.text}.${monthController.text}.${yearController.text}";
     if(isDate(dateString)){
@@ -174,6 +176,7 @@ class _DateQuestionDialogState extends State<DateQuestionDialog> {
 
   }
 
+  ///Checks if [str] is a valid date format
   bool isDate(String str) {
     try {
       DateFormat format = DateFormat("dd.MM.yyyy");

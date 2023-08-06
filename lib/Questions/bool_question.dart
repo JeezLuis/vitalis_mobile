@@ -17,7 +17,9 @@ class BooleanQuestionDialog extends StatefulWidget {
 }
 
 class _BooleanQuestionDialogState extends State<BooleanQuestionDialog> {
+  ///Question the response is for
   final Question question;
+  ///Current answer selected
   String answer = '';
 
   _BooleanQuestionDialogState(this.question);
@@ -101,6 +103,7 @@ class _BooleanQuestionDialogState extends State<BooleanQuestionDialog> {
     );
   }
 
+  ///Post response to database assigning it to the given [question]
   sendResponse() async {
     if(answer.isNotEmpty) {
       var result = await respondQuestion(question, answer);

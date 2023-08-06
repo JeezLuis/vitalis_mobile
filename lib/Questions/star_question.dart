@@ -19,7 +19,9 @@ class StarQuestionDialog extends StatefulWidget {
 }
 
 class _StarQuestionDialogState extends State<StarQuestionDialog> {
+  ///Question the response is for
   final Question question;
+  ///Current answer selected
   String answer = '';
 
   _StarQuestionDialogState(this.question);
@@ -110,6 +112,7 @@ class _StarQuestionDialogState extends State<StarQuestionDialog> {
     );
   }
 
+  ///Post response to database assigning it to the given [question]
   sendResponse() async {
     if(answer.isNotEmpty) {
       var result = await respondQuestion(question, answer);

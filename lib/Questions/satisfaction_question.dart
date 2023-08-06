@@ -18,7 +18,9 @@ class SatisfactionQuestionDialog extends StatefulWidget {
 }
 
 class _SatisfactionQuestionDialogState extends State<SatisfactionQuestionDialog> {
+  ///Question the response is for
   final Question question;
+  ///Current answer selected
   String answer = '';
 
   _SatisfactionQuestionDialogState(this.question);
@@ -120,6 +122,7 @@ class _SatisfactionQuestionDialogState extends State<SatisfactionQuestionDialog>
     );
   }
 
+  ///Post response to database assigning it to the given [question]
   sendResponse() async {
     if(answer.isNotEmpty) {
       var result = await respondQuestion(question, answer);
