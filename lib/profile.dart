@@ -25,8 +25,11 @@ class ProfileInterface extends StatefulWidget {
 }
 
 class _ProfileInterfaceState extends State<ProfileInterface> {
+  ///The [patient] the profile is of
   final Patient patient;
+  ///Mode that determines if user can edit the information
   bool viewMode;
+  ///Selected gender value
   String dropdownValueGender = '';
 
 
@@ -308,6 +311,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
     );
   }
 
+  ///Sets [patient] birthday if desired
   setBirthday() async {
     DateTime? pickedDate = await showDatePicker(
         context: context,
@@ -325,6 +329,7 @@ class _ProfileInterfaceState extends State<ProfileInterface> {
     }
   }
 
+  ///Updates [patient] data to the database
   saveData(BuildContext context) async {
     if(viewMode == false){
       patient.name = nameController.text;

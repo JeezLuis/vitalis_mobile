@@ -1,5 +1,6 @@
 import 'Model/question_type.dart';
 
+///List of question types
 const List<QuestionType> questionTypes = <QuestionType>[
   QuestionType(id: 1, name: "Texto"),
   QuestionType(id: 2, name: "Texto Largo"),
@@ -10,6 +11,7 @@ const List<QuestionType> questionTypes = <QuestionType>[
   QuestionType(id: 7, name: "Valoración"),
 ];
 
+///List of repetition types
 const List<String> repetitionTypes = <String>[
   "Lunes",
   "Martes",
@@ -21,6 +23,7 @@ const List<String> repetitionTypes = <String>[
   "Siempre",
 ];
 
+///List of genders
 const List<String> genders = <String>[
   "Hombre",
   "Mujer",

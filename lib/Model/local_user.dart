@@ -14,6 +14,7 @@ class LocalUser {
   });
 }
 
+///Saves the given [localUser] into internal storage
 setLocalUser(LocalUser localUser)async{
   final prefs = await SharedPreferences.getInstance();
   prefs.setString('mail', localUser.mail!);
@@ -22,6 +23,7 @@ setLocalUser(LocalUser localUser)async{
   prefs.setString('userkey', localUser.userkey!);
 }
 
+///Retrieves [localUser] from internal storage
 Future<LocalUser> getLocalUser() async{
   final prefs = await SharedPreferences.getInstance();
   if(prefs.containsKey('mail')){

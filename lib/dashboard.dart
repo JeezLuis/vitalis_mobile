@@ -18,10 +18,13 @@ class DashboardInterface extends StatefulWidget {
 }
 
 class _DashboardInterfaceState extends State<DashboardInterface> {
-
+  ///Local user stored inside internal storage
   LocalUser localUser = LocalUser(mail: null, password: null, faceid: null, userkey: null);
+  ///Check if user has completed his profile
   bool hasData = true;
+  ///Logged patient
   Patient patient = Patient(userid: 0, userkey: '', mail: '', password: '', objectid: null, name: null, surnames: null, birthdate: null, gender: null);
+  ///Treatments assigned to [patient]
   List<TreatmentToPatient> treatments = <TreatmentToPatient>[];
 
   _DashboardInterfaceState();
@@ -169,15 +172,19 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
     );
   }
 
+  ///Only return to login with the exit button
   Future<bool> _onWillPop() async {
     return false; //<-- SEE HERE
   }
 
+  ///Retrieves [patient] and [localUser] from respective sources and initializes
   initUserData() async{
     //Search for patient data
     localUser = await getLocalUser();
     var response = await getPatient(localUser.mail!);
     patient = response.elementAt(0);
+
+    //Checks if user has completed his profile
     if(patient.name == null) {
       hasData = false;
     }
@@ -186,10 +193,10 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
     }
     //Get Treatment Data
     await getSortTreatments();
-
   }
 
-getSortTreatments() async{
+  ///Sorts [treatments] so the paused ones stack at the end
+  getSortTreatments() async{
     treatments = await getTreatments(patient.userid);
     int compareNames(TreatmentToPatient treatment1 , TreatmentToPatient treatment2) {
       if(treatment1.state == true   && treatment1.state == false) return 1;
@@ -202,6 +209,7 @@ getSortTreatments() async{
     setState(() {});
 }
 
+  ///Opens selected [treatment] from [treatments]
   showTreatment(TreatmentToPatient treatment){
     Navigator.push(
       context,
@@ -211,6 +219,7 @@ getSortTreatments() async{
     );
   }
 
+  ///Opens porfile dialog
   showProfile(BuildContext context, bool viewMode){
     Navigator.push(
       context,

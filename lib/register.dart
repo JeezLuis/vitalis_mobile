@@ -143,6 +143,7 @@ class _RegisterInterfaceState extends State<RegisterInterface> {
     );
   }
 
+  ///Register new user into the database
   registerUser(BuildContext context) async {
     //Check if all fields have been completed
     if(emailController.text.isEmpty || passController.text.isEmpty || reppassController.text.isEmpty) {

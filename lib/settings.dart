@@ -14,9 +14,8 @@ class SettingsInterface extends StatefulWidget {
 }
 
 class _SettingsInterfaceState extends State<SettingsInterface> {
-
+  ///Information of user saved in internal storage
   LocalUser localUser = LocalUser();
-
 
   @override
   void initState() {
@@ -120,6 +119,7 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
     );
   }
 
+  ///Enable or disable FaceID depending on [localUser.faceid]
   void setupFaceID() async {
     LocalAuthentication localAuth = LocalAuthentication();
     if (localUser.faceid != null) {
@@ -132,6 +132,7 @@ class _SettingsInterfaceState extends State<SettingsInterface> {
     setState(() {});
   }
 
+  ///Retrieve data of [localUser] from internal storage
   void initStateData() async {
     localUser = await getLocalUser();
     setState(() {});

@@ -7,6 +7,7 @@ import 'package:vitalis_mobile/Model/treatment_to_patient.dart';
 
 const String url = 'https://skilledmist.backendless.app/api/data/';
 
+///Check if patient with given [mail] and [password] exists in the database
 Future<List<Patient>> logPatient(String mail, String password) async {
   final response = await http.get(Uri.parse('${url}Patient?where=password%20%3D%20\'$password\'%20AND%20mail%3D\'$mail\''));
   if (response.statusCode == 200) {
@@ -30,6 +31,7 @@ Future<List<Patient>> logPatient(String mail, String password) async {
   }
 }
 
+///Register patient to the database with gien input fields
 Future<http.Response> registerPatient(String mail, String password) async{
   return http.post(
     Uri.parse('${url}Patient'),
@@ -43,7 +45,7 @@ Future<http.Response> registerPatient(String mail, String password) async{
   );
 }
 
-///Get patient info from an email
+///Get information about specific patient using [mail]
 Future<List<Patient>> getPatient(String mail) async {
   final response = await http.get(Uri.parse('${url}Patient?where=mail%3D\'$mail\''));
 
@@ -68,7 +70,7 @@ Future<List<Patient>> getPatient(String mail) async {
   }
 }
 
-///Get treatments assigned to specific patient
+///Get treatments related to a [patientId]
 Future<List<TreatmentToPatient>> getTreatments(int patientId) async {
   final response = await http.get(Uri.parse('${url}TreatmentToPatient?where=patientid%3D$patientId'));
   if (response.statusCode == 200) {
@@ -96,6 +98,7 @@ Future<List<TreatmentToPatient>> getTreatments(int patientId) async {
   }
 }
 
+///Updates given [patient] information
 Future<http.Response> updatePatient(Patient patient) {
   return http.put(Uri.parse('${url}Patient/${patient.objectid}'),
     headers: <String, String>{
@@ -110,6 +113,7 @@ Future<http.Response> updatePatient(Patient patient) {
   );
 }
 
+///Get questions related to a [treatmentobjectid]
 Future<List<Question>> getQuestions(String treatmentObjectId) async {
   final response = await http.get(Uri.parse('${url}Question?where=treatmentid%3D\'$treatmentObjectId\''));
 
@@ -131,6 +135,7 @@ Future<List<Question>> getQuestions(String treatmentObjectId) async {
   }
 }
 
+///Retrieves all responses related to given [question]
 Future<List<Response>> getResponses(String questionObjectId) async {
   final response = await http.get(Uri.parse('${url}Response?where=questionid%3D\'$questionObjectId\''));
 
@@ -150,6 +155,7 @@ Future<List<Response>> getResponses(String questionObjectId) async {
   }
 }
 
+///Retrieves all responses from today's date related to given [question]
 Future<List<Response>> getTodayResponses(String questionObjectId) async {
   DateTime today = DateTime.now();
   final response = await http.get(Uri.parse('${url}Response?where=questionid%3D\'$questionObjectId\'%20and%20datum%3E%3D\'${DateTime(today.year, today.month, today.day, 0,0,0,0,0).millisecondsSinceEpoch}\''));
@@ -170,6 +176,7 @@ Future<List<Response>> getTodayResponses(String questionObjectId) async {
   }
 }
 
+///Posts new question with [Response.answer] into the database ans assigns to [question.objectId]
 Future<int> respondQuestion(Question question, String answer) async{
   var result = await http.post(
     Uri.parse('${url}Response'),

@@ -115,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  ///Opens login page
   login() {
     Navigator.push(
       context,
@@ -125,6 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  ///Opens register page
   register() {
     Navigator.push(
       context,

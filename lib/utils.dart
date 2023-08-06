@@ -6,7 +6,7 @@ import 'package:convert/convert.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:crypto/crypto.dart' as crypto;
 
-///Generates HexColor from hex string
+///Generates HexColor from [hexColor]
 class HexColor extends Color {
   static int _getColorFromHex(String hexColor) {
     hexColor = hexColor.toUpperCase().replaceAll("#", "");
@@ -19,7 +19,7 @@ class HexColor extends Color {
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
 
-///Alert message for errors
+///Alert message for errors with given [message] at [context]
 void alertError(String message, BuildContext context){
   QuickAlert.show(
     context: context,
@@ -31,7 +31,7 @@ void alertError(String message, BuildContext context){
   );
 }
 
-///Alert message for information
+///Alert message for information with given [message] at [context]
 void alertInfo(String message, BuildContext context){
   QuickAlert.show(
     context: context,
@@ -42,7 +42,7 @@ void alertInfo(String message, BuildContext context){
   );
 }
 
-///Generate MD5 hash
+///Generate MD5 hash from given [data]
 generateMd5(String data) {
   var content = const Utf8Encoder().convert(data);
   var md5 = crypto.md5;

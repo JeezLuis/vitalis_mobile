@@ -21,6 +21,7 @@ class LoginInterface extends StatefulWidget {
 
 class _LoginInterfaceState extends State<LoginInterface> {
 
+  ///Local user stored inside internal storage
   LocalUser localUser = LocalUser();
 
   _LoginInterfaceState();
@@ -140,6 +141,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
     );
   }
 
+  ///Log user into the application
   logUser(String email, String password) async {
     //Check if mail and password combinatgion exists
     var response = await logPatient(email, generateMd5(password));
@@ -168,6 +170,7 @@ class _LoginInterfaceState extends State<LoginInterface> {
     }
   }
 
+  ///Checks if FaceID is enabled from [localUser.faceid], if so: logins with saved credentials
   void checkFaceID() async {
     LocalAuthentication localAuth = LocalAuthentication();
 

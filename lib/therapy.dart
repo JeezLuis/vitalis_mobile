@@ -31,8 +31,11 @@ class TherapyInterface extends StatefulWidget {
 }
 
 class _TherapyInterfaceState extends State<TherapyInterface> {
+  ///Patient that is logged in
   final Patient patient;
+  ///Treatment that is going to be shown
   final TreatmentToPatient treatment;
+  ///Questions realted to [treatment]
   List<Question> questions = <Question>[];
 
   _TherapyInterfaceState(this.patient, this.treatment);
@@ -156,8 +159,11 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
     );
   }
 
+  ///Retrieve [questions] from database and sorts them
   collectQuestions() async {
+    //Empty questions
     questions = <Question>[];
+
     var auxQuestions = await getQuestions(treatment.objectid!);
     for(Question question in auxQuestions){
       //Check if question has been answered
@@ -201,6 +207,7 @@ class _TherapyInterfaceState extends State<TherapyInterface> {
     setState(() {});
   }
 
+  ///Depending on [question.type], shown the correct question pane
   questionType(Question question) async {
     switch (question.type) {
       case 1: //Text
